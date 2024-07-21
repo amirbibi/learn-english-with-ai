@@ -114,6 +114,96 @@
       "id": 23,
       "name": "Microservices",
       "description": "An architectural style that structures an application as a collection of loosely coupled services, each responsible for a specific functionality."
+    },
+    {
+      "id": 24,
+      "name": "HTML",
+      "description": "The standard markup language for creating web pages and web applications."
+    },
+    {
+      "id": 25,
+      "name": "CSS",
+      "description": "A style sheet language used for describing the presentation of a document written in HTML."
+    },
+    {
+      "id": 26,
+      "name": "JavaScript",
+      "description": "A high-level, interpreted programming language that is a core technology of the World Wide Web."
+    },
+    {
+      "id": 27,
+      "name": "Web Accessibility",
+      "description": "The practice of ensuring that websites and web applications are usable by people with disabilities."
+    },
+    {
+      "id": 28,
+      "name": "SEO",
+      "description": "Search Engine Optimization: The practice of increasing the quantity and quality of traffic to your website through organic search engine results."
+    },
+    {
+      "id": 29,
+      "name": "Express.js",
+      "description": "A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications."
+    },
+    {
+      "id": 30,
+      "name": "SQL",
+      "description": "Structured Query Language: A domain-specific language used for managing data held in a relational database management system."
+    },
+    {
+      "id": 31,
+      "name": "NoSQL Databases",
+      "description": "A type of database that provides a mechanism for storage and retrieval of data modeled in means other than the tabular relations used in relational databases."
+    },
+    {
+      "id": 32,
+      "name": "ORM",
+      "description": "Object-Relational Mapping: A programming technique for converting data between incompatible type systems using object-oriented programming languages."
+    },
+    {
+      "id": 33,
+      "name": "Git",
+      "description": "A distributed version control system for tracking changes in source code during software development."
+    },
+    {
+      "id": 34,
+      "name": "HTTPS",
+      "description": "Hypertext Transfer Protocol Secure: An extension of the HTTP protocol that uses SSL/TLS for secure communication over a computer network."
+    },
+    {
+      "id": 35,
+      "name": "Cross-Site Scripting Prevention",
+      "description": "Security measures to prevent malicious scripts from being injected into web pages viewed by other users."
+    },
+    {
+      "id": 36,
+      "name": "Data Structures",
+      "description": "Ways of organizing and storing data for efficient access and modification (e.g., arrays, linked lists, trees, graphs)."
+    },
+    {
+      "id": 37,
+      "name": "Algorithms",
+      "description": "Step-by-step procedures for solving problems or performing tasks (e.g., sorting, searching, pathfinding)."
+    },
+    {
+      "id": 38,
+      "name": "Big O Notation",
+      "description": "A mathematical notation that describes the limiting behavior of a function when the argument tends towards a particular value or infinity."
+    },
+    {
+      "id": 39,
+      "name": "Object-Oriented Programming",
+      "description": "A programming paradigm based on the concept of 'objects', which can contain data and code."
+    },
+    {
+      "id": 40,
+      "name": "Functional Programming",
+      "description": "A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing state and mutable data."
+    },
+    {
+      "id": 41,
+      "name": "Blockchain",
+      "description": "A decentralized, distributed ledger technology that records transactions across many computers."
     }
   ]
 }

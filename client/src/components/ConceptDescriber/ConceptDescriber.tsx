@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Paper,
@@ -15,13 +15,13 @@ import DescriptionInput from "./DescriptionInput";
 import SubmitButton from "./SubmitButton";
 import EvaluationDisplay from "./EvaluationDisplay";
 import ErrorMessage from "../common/ErrorMessage";
+import QuoteDisplay from "./QuoteDisplay";
 
 const ConceptDescriber: React.FC = () => {
   const [userDescription, setUserDescription] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  // const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const {
     concept,
@@ -48,14 +48,19 @@ const ConceptDescriber: React.FC = () => {
     setIsSubmitted(false);
   };
 
+  const handleDescriptionChange = useCallback((value: string) => {
+    setUserDescription(value);
+  }, []);
+
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth={false} disableGutters>
       <Box
         sx={{
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          alignItems: "center",
           py: 4,
         }}
       >
@@ -63,6 +68,11 @@ const ConceptDescriber: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          style={{
+            width: "100%",
+            minWidth: "600px",
+            maxWidth: "1200px",
+          }}
         >
           <Paper
             elevation={3}
@@ -85,6 +95,7 @@ const ConceptDescriber: React.FC = () => {
             >
               Concept Explorer
             </Typography>
+            <QuoteDisplay />
             <ConceptDisplay
               concept={concept}
               isSubmitted={isSubmitted}
@@ -96,7 +107,7 @@ const ConceptDescriber: React.FC = () => {
                 {!isSubmitted && (
                   <DescriptionInput
                     value={userDescription}
-                    onChange={setUserDescription}
+                    onChange={handleDescriptionChange}
                     isLoading={isLoading}
                     isMobile={isMobile}
                   />

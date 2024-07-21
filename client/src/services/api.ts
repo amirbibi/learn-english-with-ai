@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Concept, Evaluation } from "../types";
+import { Concept } from "../types/concept";
+import { Evaluation } from "../types/evaluation";
 
 const API_BASE_URL = "http://localhost:5000/api";
 

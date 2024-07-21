@@ -44,11 +44,7 @@ When evaluating a user's description of a concept, use this format:
 💡 **Concept Clarity:**
 [Briefly address the accuracy of the concept explanation, offering a quick tip if needed, 1-2 sentences]
 
-💪 Great effort with your English! Why don't you try explaining the concept again, focusing on using the new words and phrases we discussed? You're making excellent progress! 🌟
-
-### Introduction
-
-Hi there! 👋 I'm your friendly English tutor. I'm here to help you improve your English skills by explaining interesting concepts. What shall we explore today? Just type in a concept, and we'll unpack it together while working on your English. Remember, the goal is to enhance your language skills, so don't worry too much about perfect explanations. Let's learn and improve your English at the same time! 🚀📚
+💪 Great effort with your English!
 `;
 
 export const goodDescriptionInstructions = `

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { getRandomConcept, submitDescription } from "../services/api";
-import { Concept, Evaluation } from "../types";
+import { Concept } from "../types/concept";
+import { Evaluation } from "../types/evaluation";
 
 export const useConceptAPI = () => {
   const [concept, setConcept] = useState<string>("");
@@ -9,7 +10,7 @@ export const useConceptAPI = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const fetchRandomConcept = async () => {
+  const fetchRandomConcept = useCallback(async () => {
     setIsLoading(true);
     setError("");
     try {
@@ -22,21 +23,27 @@ export const useConceptAPI = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const evaluateDescription = async (concept: string, description: string) => {
-    setIsLoading(true);
-    setError("");
-    try {
-      const result: Evaluation = await submitDescription(concept, description);
-      setEvaluation(result.evaluation);
-      setGoodDescription(result.goodDescription);
-    } catch (err) {
-      setError("Failed to submit description. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const evaluateDescription = useCallback(
+    async (concept: string, description: string) => {
+      setIsLoading(true);
+      setError("");
+      try {
+        const result: Evaluation = await submitDescription(
+          concept,
+          description
+        );
+        setEvaluation(result.evaluation);
+        setGoodDescription(result.goodDescription);
+      } catch (err) {
+        setError("Failed to submit description. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   return {
     concept,

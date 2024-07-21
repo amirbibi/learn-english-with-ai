@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { Concept, ConceptData } from "../types";
+import { Concept, ConceptData } from "../types/concept";
 
 export class ConceptRepository {
   private conceptData: ConceptData;

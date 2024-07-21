@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, CircularProgress } from "@mui/material";
-import { motion } from "framer-motion";
 
 interface SubmitButtonProps {
   isSubmitted: boolean;
@@ -14,8 +13,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   isLoading,
   disabled,
   onClick,
-}) => (
-  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+}) => {
+  return (
     <Button
       variant="contained"
       onClick={onClick}
@@ -23,21 +22,26 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         mb: 3,
         borderRadius: 2,
         color: "background.paper",
-        py: 1.5,
-        px: 4,
-        fontWeight: "bold",
+        transition: "background-color 0.3s ease-in-out",
+        "&:hover": {
+          backgroundColor: (theme) => theme.palette.primary.dark,
+        },
+        "&:disabled": {
+          backgroundColor: (theme) => theme.palette.action.disabledBackground,
+          color: (theme) => theme.palette.action.disabled,
+        },
       }}
       disabled={disabled || isLoading}
     >
       {isLoading ? (
         <CircularProgress size={24} color="inherit" />
       ) : isSubmitted ? (
-        "Generate New Concept"
+        "Generate another concept"
       ) : (
         "Submit Description"
       )}
     </Button>
-  </motion.div>
-);
+  );
+};
 
 export default SubmitButton;

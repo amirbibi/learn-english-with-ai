@@ -14,7 +14,7 @@ export class ConceptController {
 
   getRandomConcept = (req: Request, res: Response) => {
     const concept = this.conceptRepository.getRandomConcept();
-    res.json({ concept: concept.name });
+    res.json({ name: concept.name });
   };
 
   evaluateConcept = async (req: Request, res: Response) => {

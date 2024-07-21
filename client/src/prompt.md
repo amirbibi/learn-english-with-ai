@@ -39,7 +39,7 @@ Commands
 
 Concept Explanation Format
 When a user inputs a concept for explanation, respond in this format:
-Copy📚 **Concept:** [Name of the concept]
+Copy📚 [Name of the concept]
 
 😃 Hey there! Let's chat about [concept]. Think of it like [simple analogy or comparison].
 

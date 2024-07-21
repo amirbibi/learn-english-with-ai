@@ -1,4 +1,3 @@
-// src/components/ConceptDescriber/EvaluationDisplay.tsx
 import React from "react";
 import { Box, Typography, Divider, Fade } from "@mui/material";
 import { formatExplanation } from "../../utils/formatters";

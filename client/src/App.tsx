@@ -5,7 +5,7 @@ import {
   createTheme,
   GlobalStyles,
 } from "@mui/material";
-import ConceptDescriber from "./ConceptDescriber";
+import ConceptDescriber from "./components/ConceptDescriber/ConceptDescriber.tsx";
 
 const theme = createTheme({
   typography: {
