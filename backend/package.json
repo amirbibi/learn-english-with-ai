@@ -4,10 +4,9 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "start": "node --no-deprecation dist/server.js",
-    "dev": "ts-node-dev --respawn --transpile-only --no-deprecation src/server.ts",
     "build": "tsc",
-    "watch": "tsc -w"
+    "start": "node dist/app.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "keywords": [],
   "author": "",

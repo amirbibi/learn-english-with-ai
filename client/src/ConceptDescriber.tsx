@@ -85,8 +85,6 @@ const ConceptDescriber: React.FC = () => {
         description: userDescription,
       });
 
-      console.log("Response received:", response.data);
-
       setEvaluation(response.data.evaluation);
       setGoodDescription(response.data.goodDescription);
       setIsSubmitted(true);
