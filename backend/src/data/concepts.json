@@ -1,0 +1,119 @@
+{
+  "concepts": [
+    {
+      "id": 1,
+      "name": "User Authentication",
+      "description": "A system that verifies users' identities to ensure only authorized access to web applications."
+    },
+    {
+      "id": 2,
+      "name": "Machine Learning",
+      "description": "A type of artificial intelligence where computers improve their performance by learning from data."
+    },
+    {
+      "id": 3,
+      "name": "Responsive Design",
+      "description": "Web design approach that ensures a site looks good on all devices by adjusting layout and content based on screen size."
+    },
+    {
+      "id": 4,
+      "name": "Serverless Computing",
+      "description": "A cloud computing model where developers build and run applications without managing server infrastructure."
+    },
+    {
+      "id": 5,
+      "name": "Version Control",
+      "description": "A system that tracks changes to code over time, allowing developers to collaborate and manage code history."
+    },
+    {
+      "id": 6,
+      "name": "API Integration",
+      "description": "Connecting different software systems using APIs to enable them to communicate and share data."
+    },
+    {
+      "id": 7,
+      "name": "Front-End Frameworks",
+      "description": "Libraries or frameworks that simplify building user interfaces, like React, Angular, or Vue.js."
+    },
+    {
+      "id": 8,
+      "name": "Web Security",
+      "description": "Practices and tools used to protect websites from attacks, data breaches, and other security threats."
+    },
+    {
+      "id": 9,
+      "name": "Augmented Reality",
+      "description": "Technology that overlays digital information on the real world through devices like smartphones or AR glasses."
+    },
+    {
+      "id": 10,
+      "name": "Progressive Web Apps",
+      "description": "Web applications that offer an app-like experience on the web, including offline access and push notifications."
+    },
+    {
+      "id": 11,
+      "name": "SOLID Principles",
+      "description": "A set of five design principles for writing maintainable and scalable object-oriented code."
+    },
+    {
+      "id": 12,
+      "name": "package.json",
+      "description": "A file used in Node.js projects to manage project dependencies, scripts, and metadata."
+    },
+    {
+      "id": 13,
+      "name": "package-lock.json",
+      "description": "A file that locks the versions of dependencies in a Node.js project to ensure consistent installations across environments."
+    },
+    {
+      "id": 14,
+      "name": "Node.js",
+      "description": "A JavaScript runtime built on Chrome's V8 engine for building scalable network applications."
+    },
+    {
+      "id": 15,
+      "name": "Next.js",
+      "description": "A React framework that enables server-side rendering and static site generation for improved performance and SEO."
+    },
+    {
+      "id": 16,
+      "name": "Webpack",
+      "description": "A module bundler for JavaScript applications that bundles and optimizes code and assets for the web."
+    },
+    {
+      "id": 17,
+      "name": "Docker",
+      "description": "A platform for developing, shipping, and running applications inside lightweight, portable containers."
+    },
+    {
+      "id": 18,
+      "name": "CI/CD",
+      "description": "Continuous Integration and Continuous Deployment, practices that automate code integration, testing, and deployment."
+    },
+    {
+      "id": 19,
+      "name": "MERN Stack",
+      "description": "A stack of technologies for building web applications, including MongoDB, Express.js, React, and Node.js."
+    },
+    {
+      "id": 20,
+      "name": "RESTful API",
+      "description": "An API design style that uses HTTP requests to perform CRUD operations, leveraging standard HTTP methods like GET, POST, PUT, and DELETE."
+    },
+    {
+      "id": 21,
+      "name": "GraphQL",
+      "description": "A query language for APIs that allows clients to request only the data they need, and nothing more."
+    },
+    {
+      "id": 22,
+      "name": "OAuth",
+      "description": "An open standard for access delegation, commonly used for token-based authentication and authorization."
+    },
+    {
+      "id": 23,
+      "name": "Microservices",
+      "description": "An architectural style that structures an application as a collection of loosely coupled services, each responsible for a specific functionality."
+    }
+  ]
+}
