@@ -82,7 +82,7 @@ export const goodDescriptionInstructions = `
 
 When explaining a concept, respond in this format:
 
-📚 **Concept:** 
+📚 Concept:
 [Name of the concept]
 
 😃 Hey there! Let's chat about [concept] in English. Think of it like [simple analogy or comparison using common English expressions].

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Box, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  Fade,
+  Container,
+} from "@mui/material";
+import { motion } from "framer-motion";
 import { useConceptAPI } from "../../hooks/useConceptAPI";
 import ConceptDisplay from "./ConceptDisplay";
 import DescriptionInput from "./DescriptionInput";
@@ -12,7 +21,7 @@ const ConceptDescriber: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  // const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const {
     concept,
@@ -40,63 +49,76 @@ const ConceptDescriber: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxWidth: isMobile ? "100%" : isTablet ? "600px" : "1000px",
-        height: isMobile ? "auto" : "600px",
-        display: "flex",
-        flexDirection: "column",
-        m: "auto",
-        p: 2,
-      }}
-    >
-      <Paper
-        elevation={3}
+    <Container maxWidth="lg">
+      <Box
         sx={{
-          p: isMobile ? 2 : 4,
-          borderRadius: 4,
-          height: "100%",
+          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
-          bgcolor: "background.paper",
+          justifyContent: "center",
+          py: 4,
         }}
       >
-        <Typography
-          variant="h6"
-          gutterBottom
-          sx={{ color: "primary.main", fontSize: isMobile ? "1.5rem" : "2rem" }}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          Concepts
-        </Typography>
-        <ConceptDisplay
-          concept={concept}
-          isSubmitted={isSubmitted}
-          isLoading={isLoading}
-          onRefresh={getRandomConcept}
-        />
-        {!isSubmitted && (
-          <DescriptionInput
-            value={userDescription}
-            onChange={setUserDescription}
-            isLoading={isLoading}
-            isMobile={isMobile}
-          />
-        )}
-        <SubmitButton
-          isSubmitted={isSubmitted}
-          isLoading={isLoading}
-          disabled={!isSubmitted && !userDescription.trim()}
-          onClick={isSubmitted ? handleNewConcept : handleSubmit}
-        />
-        {error && <ErrorMessage message={error} />}
-        <EvaluationDisplay
-          evaluation={evaluation}
-          goodDescription={goodDescription}
-          isMobile={isMobile}
-        />
-      </Paper>
-    </Box>
+          <Paper
+            elevation={3}
+            sx={{
+              p: { xs: 2, sm: 4 },
+              borderRadius: 4,
+              bgcolor: "background.paper",
+              boxShadow: theme.shadows[10],
+            }}
+          >
+            <Typography
+              variant="h4"
+              gutterBottom
+              sx={{
+                color: "primary.main",
+                fontWeight: "bold",
+                mb: 4,
+                textAlign: "center",
+              }}
+            >
+              Concept Explorer
+            </Typography>
+            <ConceptDisplay
+              concept={concept}
+              isSubmitted={isSubmitted}
+              isLoading={isLoading}
+              onRefresh={getRandomConcept}
+            />
+            <Fade in={!isSubmitted} timeout={500}>
+              <Box>
+                {!isSubmitted && (
+                  <DescriptionInput
+                    value={userDescription}
+                    onChange={setUserDescription}
+                    isLoading={isLoading}
+                    isMobile={isMobile}
+                  />
+                )}
+              </Box>
+            </Fade>
+            <SubmitButton
+              isSubmitted={isSubmitted}
+              isLoading={isLoading}
+              disabled={!isSubmitted && !userDescription.trim()}
+              onClick={isSubmitted ? handleNewConcept : handleSubmit}
+            />
+            {error && <ErrorMessage message={error} />}
+            <EvaluationDisplay
+              evaluation={evaluation}
+              goodDescription={goodDescription}
+              {...{ isMobile }}
+            />
+          </Paper>
+        </motion.div>
+      </Box>
+    </Container>
   );
 };
 

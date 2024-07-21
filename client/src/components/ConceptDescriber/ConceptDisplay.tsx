@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Tooltip, Zoom } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import { motion } from "framer-motion";
 
 interface ConceptDisplayProps {
   concept: string;
@@ -24,33 +25,45 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
       minHeight: "40px",
     }}
   >
-    <Typography
-      variant="h6"
-      sx={{
-        color: "secondary.main",
-        pr: isSubmitted ? 0 : 6,
-        fontSize: { xs: "1rem", sm: "1.25rem" },
-        wordBreak: "break-word",
-      }}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      Concept: {concept}
-    </Typography>
-    {!isSubmitted && (
-      <IconButton
-        onClick={onRefresh}
-        size="small"
-        aria-label="refresh concept"
+      <Typography
+        variant="h5"
         sx={{
           color: "secondary.main",
-          position: "absolute",
-          right: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
+          pr: isSubmitted ? 0 : 6,
+          fontWeight: "medium",
+          wordBreak: "break-word",
         }}
-        disabled={isLoading}
       >
-        <RefreshIcon />
-      </IconButton>
+        Concept: {concept}
+      </Typography>
+    </motion.div>
+    {!isSubmitted && (
+      <Tooltip
+        title="Get new concept"
+        placement="top"
+        TransitionComponent={Zoom}
+      >
+        <IconButton
+          onClick={onRefresh}
+          size="large"
+          aria-label="refresh concept"
+          sx={{
+            color: "primary.main",
+            position: "absolute",
+            right: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+          disabled={isLoading}
+        >
+          <RefreshIcon />
+        </IconButton>
+      </Tooltip>
     )}
   </Box>
 );
