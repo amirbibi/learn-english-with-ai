@@ -17,7 +17,7 @@ import EvaluationDisplay from "./EvaluationDisplay";
 import ErrorMessage from "../common/ErrorMessage";
 import QuoteDisplay from "./QuoteDisplay";
 
-const ConceptDescriber: React.FC = () => {
+const ConceptExplorer: React.FC = () => {
   const [userDescription, setUserDescription] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const theme = useTheme();
@@ -133,4 +133,4 @@ const ConceptDescriber: React.FC = () => {
   );
 };
 
-export default ConceptDescriber;
+export default ConceptExplorer;

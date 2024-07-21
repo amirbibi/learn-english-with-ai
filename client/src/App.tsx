@@ -5,7 +5,7 @@ import {
   createTheme,
   GlobalStyles,
 } from "@mui/material";
-import ConceptDescriber from "./components/ConceptDescriber/ConceptDescriber.tsx";
+import ConceptExplorer from "./components/ConceptExplorer/ConceptExplorer.tsx";
 
 const theme = createTheme({
   typography: {
@@ -55,7 +55,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-      <ConceptDescriber />
+      <ConceptExplorer />
     </ThemeProvider>
   );
 };
