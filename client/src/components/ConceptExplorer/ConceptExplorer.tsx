@@ -43,9 +43,9 @@ const ConceptExplorer: React.FC = () => {
   };
 
   const handleNewConcept = () => {
-    getRandomConcept();
     setUserDescription("");
     setIsSubmitted(false);
+    getRandomConcept();
   };
 
   const handleDescriptionChange = useCallback((value: string) => {

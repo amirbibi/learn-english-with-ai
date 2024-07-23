@@ -22,9 +22,15 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         mb: 3,
         borderRadius: 2,
         color: "background.paper",
+        backgroundColor: (theme) =>
+          isSubmitted ? "yellow" : theme.palette.primary.main,
+        fontWeight: isSubmitted ? 700 : 500,
         transition: "background-color 0.3s ease-in-out",
         "&:hover": {
-          backgroundColor: (theme) => theme.palette.primary.dark,
+          backgroundColor: (theme) =>
+            isSubmitted
+              ? theme.palette.primary.light
+              : theme.palette.primary.dark,
         },
         "&:disabled": {
           backgroundColor: (theme) => theme.palette.action.disabledBackground,
