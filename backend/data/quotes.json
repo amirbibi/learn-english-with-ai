@@ -2,7 +2,7 @@
   "quotes": [
     {
       "id": 1,
-      "text": "If you can think, speak and write, you are absolutely unstoppable.",
+      "text": "If you can think, speak and write, you are unstoppable.",
       "author": "Jordan Peterson"
     },
     {
@@ -17,17 +17,17 @@
     },
     {
       "id": 4,
-      "text": "To write well, express yourself like the common people, but think like a wise man.",
+      "text": "Express yourself like the common people, but think wisely.",
       "author": "Aristotle"
     },
     {
       "id": 5,
-      "text": "The most valuable of all talents is that of never using two words when one will do.",
+      "text": "The most valuable talent is never using two words when one will do.",
       "author": "Thomas Jefferson"
     },
     {
       "id": 6,
-      "text": "If you don't have time to read, you don't have the time (or the tools) to write. Simple as that.",
+      "text": "If you don't have time to read, you don't have time to write.",
       "author": "Stephen King"
     },
     {
@@ -37,12 +37,12 @@
     },
     {
       "id": 8,
-      "text": "Words are, of course, the most powerful drug used by mankind.",
+      "text": "Words are the most powerful drug used by mankind.",
       "author": "Rudyard Kipling"
     },
     {
       "id": 9,
-      "text": "The difference between the almost right word and the right word is the difference between the lightning bug and the lightning.",
+      "text": "The right word is the difference between the lightning bug and lightning.",
       "author": "Mark Twain"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "id": 11,
-      "text": "You must stay drunk on writing so reality cannot destroy you.",
+      "text": "Stay drunk on writing so reality cannot destroy you.",
       "author": "Ray Bradbury"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "id": 13,
-      "text": "Words can be like X-rays if you use them properly – they'll go through anything. You read and you're pierced.",
+      "text": "Words can be like X-rays if you use them properly.",
       "author": "Aldous Huxley"
     },
     {
       "id": 14,
-      "text": "Writing is thinking. To write well is to think clearly. That's why it's so hard.",
+      "text": "To write well is to think clearly. That's why it's so hard.",
       "author": "David McCullough"
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "id": 20,
-      "text": "Start writing, no matter what. The water does not flow until the faucet is turned on.",
+      "text": "The water does not flow until the faucet is turned on.",
       "author": "Louis L'Amour"
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "id": 22,
-      "text": "If there's a book that you want to read, but it hasn't been written yet, then you must write it.",
+      "text": "If there's a book you want to read, you must write it.",
       "author": "Toni Morrison"
     },
     {
@@ -122,7 +122,7 @@
     },
     {
       "id": 25,
-      "text": "A writer is someone for whom writing is more difficult than it is for other people.",
+      "text": "A writer finds writing more difficult than other people.",
       "author": "Thomas Mann"
     },
     {
@@ -137,12 +137,12 @@
     },
     {
       "id": 28,
-      "text": "The best time to plan a book is while you're doing the dishes.",
+      "text": "The best time to plan a book is while you're doing dishes.",
       "author": "Agatha Christie"
     },
     {
       "id": 29,
-      "text": "Write what disturbs you, what you fear, what you have not been willing to speak about. Be willing to be split open.",
+      "text": "Write what disturbs you, what you fear, what you haven't spoken about.",
       "author": "Natalie Goldberg"
     },
     {
@@ -162,8 +162,8 @@
     },
     {
       "id": 33,
-      "text": "The greatest part of a writer's time is spent in reading, in order to write; a man will turn over half a library to make one book.",
-      "author": "Samuel Johnson"
+      "text": "Make resolutions, minute-by-minute, even second-by-second if needed.",
+      "author": "Amir Bibi"
     },
     {
       "id": 34,
@@ -172,7 +172,7 @@
     },
     {
       "id": 35,
-      "text": "To produce a mighty book, you must choose a mighty theme.",
+      "text": "To produce a mighty book, choose a mighty theme.",
       "author": "Herman Melville"
     },
     {
@@ -197,7 +197,7 @@
     },
     {
       "id": 40,
-      "text": "The role of a writer is not to say what we all can say, but what we are unable to say.",
+      "text": "The role of a writer is to say what we are unable to say.",
       "author": "Anaïs Nin"
     }
   ]

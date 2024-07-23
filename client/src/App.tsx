@@ -5,7 +5,11 @@ import {
   createTheme,
   GlobalStyles,
 } from "@mui/material";
-import ConceptExplorer from "./components/ConceptExplorer/ConceptExplorer.tsx";
+import { Route, Routes } from "react-router-dom";
+import ConceptExplorer from "./components/ConceptExplorer/ConceptExplorer";
+import Navbar from "./components/common/Navbar";
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
 
 const theme = createTheme({
   typography: {
@@ -43,8 +47,7 @@ const globalStyles = {
     padding: 0,
     minHeight: "100vh",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "column",
     backgroundColor: "#121212",
     fontFamily: '"Poppins", sans-serif',
   },
@@ -55,7 +58,12 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-      <ConceptExplorer />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<ConceptExplorer />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </ThemeProvider>
   );
 };

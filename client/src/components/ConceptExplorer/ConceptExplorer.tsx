@@ -56,11 +56,11 @@ const ConceptExplorer: React.FC = () => {
     <Container maxWidth={false} disableGutters>
       <Box
         sx={{
-          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          mt: 4,
           py: 4,
         }}
       >
@@ -69,9 +69,8 @@ const ConceptExplorer: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={{
-            width: "100%",
-            minWidth: "600px",
-            maxWidth: "1200px",
+            minWidth: "800px",
+            padding: "0 2rem",
           }}
         >
           <Paper

@@ -3,8 +3,6 @@ import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { Quote } from "../../types/quote";
 
-const API_BASE_URL = "http://localhost:5000/api";
-
 const QuoteDisplay: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const theme = useTheme();
@@ -13,7 +11,9 @@ const QuoteDisplay: React.FC = () => {
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const response = await axios.get<Quote>(`${API_BASE_URL}/quote`);
+        const response = await axios.get<Quote>(
+          `${import.meta.env.VITE_API_BASE_URL}/quote`
+        );
         setQuote(response.data);
       } catch (error) {
         console.error("Failed to fetch quote:", error);
