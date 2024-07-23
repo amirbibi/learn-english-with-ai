@@ -7,10 +7,12 @@ import {
   Paper,
   Container,
   Link,
+  Divider,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
+import GoogleIcon from "@mui/icons-material/Google";
 
 interface FormData {
   email: string;
@@ -30,6 +32,11 @@ const Login: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleGoogleLogin = () => {
+    // window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
+    console.log("Attempting to log in with Google");
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,8 +77,8 @@ const Login: React.FC = () => {
           >
             <Typography
               component="h1"
-              variant="h5"
-              sx={{ mb: 3, textAlign: "center" }}
+              variant="h4"
+              sx={{ mb: 3, textAlign: "center", fontWeight: 700 }}
             >
               Login
             </Typography>
@@ -113,6 +120,16 @@ const Login: React.FC = () => {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
+              </Button>
+              <Divider sx={{ my: 2 }}>OR</Divider>
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<GoogleIcon />}
+                onClick={handleGoogleLogin}
+                sx={{ mt: 1, mb: 2 }}
+              >
+                Continue with Google
               </Button>
               <Box sx={{ textAlign: "center" }}>
                 <Link component={RouterLink} to="/signup" variant="body2">
