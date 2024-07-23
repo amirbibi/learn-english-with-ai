@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
+import { useAuthAPI } from "../../hooks/useAuthAPI";
 
 interface FormData {
   email: string;
@@ -28,6 +29,8 @@ const Signup: React.FC = () => {
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { isLoading, error, handleRegister } = useAuthAPI();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -65,11 +68,13 @@ const Signup: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validateForm()) {
-      // Signup logic will be implemented later
-      console.log("Signup attempt with:", formData);
+      const success = await handleRegister(formData.email, formData.password);
+      if (success) {
+        navigate("/login"); // Redirect to login page after successful registration
+      }
     }
   };
 
@@ -165,9 +170,15 @@ const Signup: React.FC = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={isLoading}
               >
-                Sign Up
+                {isLoading ? "Logging in..." : "Sign Up"}
               </Button>
+              {error && (
+                <Typography color="error" sx={{ mb: 2, textAlign: "center" }}>
+                  {error}
+                </Typography>
+              )}
               <Divider sx={{ my: 2 }}>OR</Divider>
               <Button
                 fullWidth

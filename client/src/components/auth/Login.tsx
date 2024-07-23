@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
+import { useAuthAPI } from "../../hooks/useAuthAPI";
 
 interface FormData {
   email: string;
@@ -25,6 +26,8 @@ const Login: React.FC = () => {
     password: "",
   });
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { isLoading, error, handleLogin } = useAuthAPI();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -39,10 +42,12 @@ const Login: React.FC = () => {
     console.log("Attempting to log in with Google");
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Login logic will be implemented later
-    console.log("Login attempt with:", formData);
+    const success = await handleLogin(formData.email, formData.password);
+    if (success) {
+      navigate("/"); // Redirect to home page after successful login
+    }
   };
 
   return (
@@ -118,9 +123,15 @@ const Login: React.FC = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={isLoading}
               >
-                Sign In
+                {isLoading ? "Logging in..." : "Sign In"}
               </Button>
+              {error && (
+                <Typography color="error" sx={{ mb: 2, textAlign: "center" }}>
+                  {error}
+                </Typography>
+              )}
               <Divider sx={{ my: 2 }}>OR</Divider>
               <Button
                 fullWidth

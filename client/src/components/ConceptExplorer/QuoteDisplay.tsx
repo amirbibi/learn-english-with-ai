@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-import axios from "axios";
-import { Quote } from "../../types/quote";
+import { useQuoteAPI } from "../../hooks/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
-  const [quote, setQuote] = useState<Quote | null>(null);
+  const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    const fetchQuote = async () => {
-      try {
-        const response = await axios.get<Quote>(
-          `${import.meta.env.VITE_API_BASE_URL}/quote`
-        );
-        setQuote(response.data);
-      } catch (error) {
-        console.error("Failed to fetch quote:", error);
-      }
-    };
+    fetchRandomQuote();
+  }, [fetchRandomQuote]);
 
-    fetchQuote();
-  }, []);
-
+  if (isLoading) return <Typography>Loading quote...</Typography>;
+  if (error) return <Typography color="error">{error}</Typography>;
   if (!quote) return null;
 
   return (
