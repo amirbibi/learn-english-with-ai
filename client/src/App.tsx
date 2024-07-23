@@ -10,6 +10,8 @@ import ConceptExplorer from "./components/ConceptExplorer/ConceptExplorer";
 import Navbar from "./components/common/Navbar";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import { UserProvider } from "./contexts/UserContext";
+import PrivateRoute from "./components/common/PrivateRoute";
 
 const theme = createTheme({
   typography: {
@@ -58,12 +60,16 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ConceptExplorer />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+      <UserProvider>
+        <Navbar />
+        <Routes>
+          <Route element={<PrivateRoute />}>
+            <Route path="/" element={<ConceptExplorer />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </UserProvider>
     </ThemeProvider>
   );
 };

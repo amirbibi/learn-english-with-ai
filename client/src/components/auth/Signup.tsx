@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
-import { useAuthAPI } from "../../hooks/useAuthAPI";
+import { useUserContext } from "../../hooks/useUserContext";
 
 interface FormData {
   email: string;
@@ -27,10 +27,14 @@ const Signup: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [validationErrors, setValidationErrors] = useState<Partial<FormData>>(
+    {}
+  );
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const theme = useTheme();
   const navigate = useNavigate();
-  const { isLoading, error, handleRegister } = useAuthAPI();
+  const { register } = useUserContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -39,8 +43,11 @@ const Signup: React.FC = () => {
       [name]: value,
     }));
     // Clear error when user starts typing
-    if (errors[name as keyof FormData]) {
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    if (validationErrors[name as keyof FormData]) {
+      setValidationErrors((prevvalidationErrors) => ({
+        ...prevvalidationErrors,
+        [name]: "",
+      }));
     }
   };
 
@@ -50,30 +57,40 @@ const Signup: React.FC = () => {
   };
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {};
+    const newvalidationErrors: Partial<FormData> = {};
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newvalidationErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
+      newvalidationErrors.email = "Email is invalid";
     }
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newvalidationErrors.password = "Password is required";
     } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
+      newvalidationErrors.password = "Password must be at least 8 characters";
     }
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+      newvalidationErrors.confirmPassword = "Passwords do not match";
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setValidationErrors(newvalidationErrors);
+    return Object.keys(newvalidationErrors).length === 0;
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     if (validateForm()) {
-      const success = await handleRegister(formData.email, formData.password);
-      if (success) {
-        navigate("/login"); // Redirect to login page after successful registration
+      setError(null);
+      try {
+        const success = await register(formData.email, formData.password);
+        if (success) {
+          navigate("/login");
+        } else {
+          setError("Registration failed. Please try again.");
+        }
+      } catch (err) {
+        setError("An error occurred. Please try again.");
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -132,8 +149,8 @@ const Signup: React.FC = () => {
                 autoFocus
                 value={formData.email}
                 onChange={handleChange}
-                error={!!errors.email}
-                helperText={errors.email}
+                error={!!validationErrors.email}
+                helperText={validationErrors.email}
               />
               <TextField
                 variant="outlined"
@@ -147,8 +164,8 @@ const Signup: React.FC = () => {
                 autoComplete="new-password"
                 value={formData.password}
                 onChange={handleChange}
-                error={!!errors.password}
-                helperText={errors.password}
+                error={!!validationErrors.password}
+                helperText={validationErrors.password}
               />
               <TextField
                 variant="outlined"
@@ -162,8 +179,8 @@ const Signup: React.FC = () => {
                 autoComplete="new-password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword}
+                error={!!validationErrors.confirmPassword}
+                helperText={validationErrors.confirmPassword}
               />
               <Button
                 type="submit"

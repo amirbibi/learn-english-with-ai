@@ -1,10 +1,17 @@
-// src/components/common/Navbar.tsx
 import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
+import { useUserContext } from "../../hooks/useUserContext";
 
 const Navbar: React.FC = () => {
+  const { user, logout } = useUserContext();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <AppBar
       sx={{ minWidth: "800px" }}
@@ -44,12 +51,20 @@ const Navbar: React.FC = () => {
           <Button color="inherit" component={RouterLink} to="/">
             Concept Explorer
           </Button>
-          <Button color="inherit" component={RouterLink} to="/login">
-            Login
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/signup">
-            Sign Up
-          </Button>
+          {user ? (
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button color="inherit" component={RouterLink} to="/login">
+                Login
+              </Button>
+              <Button color="inherit" component={RouterLink} to="/signup">
+                Sign Up
+              </Button>
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
-import { useAuthAPI } from "../../hooks/useAuthAPI";
+import { useUserContext } from "../../hooks/useUserContext";
 
 interface FormData {
   email: string;
@@ -27,7 +27,9 @@ const Login: React.FC = () => {
   });
   const theme = useTheme();
   const navigate = useNavigate();
-  const { isLoading, error, handleLogin } = useAuthAPI();
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { login } = useUserContext();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -44,9 +46,19 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const success = await handleLogin(formData.email, formData.password);
-    if (success) {
-      navigate("/"); // Redirect to home page after successful login
+    setIsLoading(true);
+    setError(null);
+    try {
+      const success = await login(formData.email, formData.password);
+      if (success) {
+        navigate("/");
+      } else {
+        setError("Login failed. Please check your credentials.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
