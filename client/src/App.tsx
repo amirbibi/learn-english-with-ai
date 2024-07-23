@@ -4,6 +4,8 @@ import {
   ThemeProvider,
   createTheme,
   GlobalStyles,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import ConceptExplorer from "./components/ConceptExplorer/ConceptExplorer";
@@ -12,6 +14,8 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import { UserProvider } from "./contexts/UserContext";
 import PrivateRoute from "./components/common/PrivateRoute";
+import { useUserContext } from "./hooks/useUserContext";
+import PublicRoute from "./components/common/PublicRoute";
 
 const theme = createTheme({
   typography: {
@@ -55,20 +59,45 @@ const globalStyles = {
   },
 };
 
+const AppContent: React.FC = () => {
+  const { isLoading } = useUserContext();
+
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<ConceptExplorer />} />
+        </Route>
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
+      </Routes>
+    </>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={globalStyles} />
       <UserProvider>
-        <Navbar />
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route path="/" element={<ConceptExplorer />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
+        <AppContent />
       </UserProvider>
     </ThemeProvider>
   );

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { JWT_SECRET } from "../config";
+import { AuthRequest } from "../middlewares/auth";
 
 export class AuthController {
   static register = async (req: Request, res: Response) => {
@@ -36,6 +37,18 @@ export class AuthController {
       res.json({ token });
     } catch (error) {
       res.status(500).json({ message: "Error logging in", error });
+    }
+  };
+
+  static validateToken = async (req: AuthRequest, res: Response) => {
+    try {
+      const user = await User.findById(req.userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json({ email: user.email });
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
     }
   };
 }

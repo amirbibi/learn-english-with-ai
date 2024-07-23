@@ -23,17 +23,28 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { handleLogin, handleRegister, handleLogout } = useAuthAPI();
+  const { handleLogin, handleRegister, handleLogout, handleTokenValidation } =
+    useAuthAPI();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // TODO: Implement token verification and user data fetching
-      // For now, we'll just set a dummy user
-      setUser({ email: "user@example.com" });
+    const validateToken = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const email = await handleTokenValidation();
+          if (email) {
+            setUser({ email });
+          }
+        } catch (error) {
+          console.error("Token validation failed:", error);
+          localStorage.removeItem("token");
+        }
+      }
       setIsLoading(false);
-    }
-  }, []);
+    };
+
+    validateToken();
+  }, [handleTokenValidation]);
 
   const login = async (email: string, password: string) => {
     const success = await handleLogin(email, password);

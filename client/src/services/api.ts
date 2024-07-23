@@ -22,6 +22,11 @@ export const register = async (email: string, password: string) => {
   return response.data;
 };
 
+export const validateToken = async () => {
+  const response = await api.get("/auth/validate-token");
+  return response.data;
+};
+
 export const getRandomConcept = async () => {
   const response = await api.get("/concept");
   return response.data;

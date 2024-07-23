@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { login, register } from "../services/api";
+import { login, register, validateToken } from "../services/api";
 
 export const useAuthAPI = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,11 +41,26 @@ export const useAuthAPI = () => {
     localStorage.removeItem("token");
   }, []);
 
+  const handleTokenValidation = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await validateToken();
+      return response.email;
+    } catch (err) {
+      setError("Token validation failed");
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   return {
     isLoading,
     error,
     handleLogin,
     handleRegister,
     handleLogout,
+    handleTokenValidation,
   };
 };
