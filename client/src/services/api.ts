@@ -28,7 +28,7 @@ export const validateToken = async () => {
 };
 
 export const getRandomConcept = async () => {
-  const response = await api.get("/api/concept");
+  const response = await api.get("/concept");
   return response.data;
 };
 
@@ -36,12 +36,12 @@ export const submitDescription = async (
   concept: string,
   description: string
 ) => {
-  const response = await api.post("/api/evaluate", { concept, description });
+  const response = await api.post("/evaluate", { concept, description });
   return response.data;
 };
 
 export const getRandomQuote = async () => {
-  const response = await api.get("/api/quote");
+  const response = await api.get("/quote");
   return response.data;
 };
 

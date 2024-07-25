@@ -40,14 +40,6 @@ const Login: React.FC = () => {
     }));
   };
 
-  // const handleGoogleLogin = () => {
-  //   // window href to getGoogleUrl
-  //   window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
-
-  //   window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
-  //   console.log("Attempting to log in with Google");
-  // };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -154,7 +146,6 @@ const Login: React.FC = () => {
                 variant="outlined"
                 startIcon={<GoogleIcon />}
                 href={getGoogleUrl()}
-                // onClick={handleGoogleLogin}
                 sx={{ mt: 1, mb: 2 }}
               >
                 Continue with Google

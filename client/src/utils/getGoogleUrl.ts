@@ -14,7 +14,5 @@ export const getGoogleUrl = () => {
 
   const qs = new URLSearchParams(options);
 
-  console.log({ qs });
-
   return `${rootUrl}?${qs}`;
 };

@@ -52,11 +52,9 @@ export class AuthController {
     }
   };
 
-  static googleAuth = async (req: Request, res: Response) => {
-    console.log("Google auth");
-  };
-
   static googleCallback = async (req: Request, res: Response) => {
     console.log("Google callback");
+    const { code } = req.query;
+    console.log("Code:", code);
   };
 }
