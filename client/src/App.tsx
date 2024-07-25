@@ -85,6 +85,7 @@ const AppContent: React.FC = () => {
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          {/* <Route path="/auth/google/callback" element={<Signup />} /> */}
         </Route>
       </Routes>
     </>

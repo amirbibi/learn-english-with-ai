@@ -14,6 +14,7 @@ import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useUserContext } from "../../hooks/useUserContext";
+import { getGoogleUrl } from "../../utils/getGoogleUrl";
 
 interface FormData {
   email: string;
@@ -39,10 +40,13 @@ const Login: React.FC = () => {
     }));
   };
 
-  const handleGoogleLogin = () => {
-    window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
-    console.log("Attempting to log in with Google");
-  };
+  // const handleGoogleLogin = () => {
+  //   // window href to getGoogleUrl
+  //   window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
+
+  //   window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
+  //   console.log("Attempting to log in with Google");
+  // };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -149,7 +153,8 @@ const Login: React.FC = () => {
                 fullWidth
                 variant="outlined"
                 startIcon={<GoogleIcon />}
-                onClick={handleGoogleLogin}
+                href={getGoogleUrl()}
+                // onClick={handleGoogleLogin}
                 sx={{ mt: 1, mb: 2 }}
               >
                 Continue with Google

@@ -4,10 +4,6 @@ import User from "../models/User";
 import { JWT_SECRET } from "../config";
 import { AuthRequest } from "../middlewares/auth";
 
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
-
 export class AuthController {
   static register = async (req: Request, res: Response) => {
     try {
@@ -57,49 +53,10 @@ export class AuthController {
   };
 
   static googleAuth = async (req: Request, res: Response) => {
-    if (!CLIENT_ID || !REDIRECT_URI) {
-      return res
-        .status(500)
-        .json({ error: "Google OAuth configuration is missing" });
-    }
-
-    const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
-    url.searchParams.append("client_id", CLIENT_ID);
-    url.searchParams.append("redirect_uri", REDIRECT_URI);
-    url.searchParams.append("response_type", "code");
-    url.searchParams.append("scope", "profile email");
-
-    res.redirect(url.toString());
+    console.log("Google auth");
   };
 
   static googleCallback = async (req: Request, res: Response) => {
     console.log("Google callback");
-    // const { code } = req.query;
-    // try {
-    //   // Exchange authorization code for access token
-    //   const { data } = await axios.post(
-    //     "<https://oauth2.googleapis.com/token>",
-    //     {
-    //       client_id: CLIENT_ID,
-    //       client_secret: CLIENT_SECRET,
-    //       code,
-    //       redirect_uri: REDIRECT_URI,
-    //       grant_type: "authorization_code",
-    //     }
-    //   );
-    //   const { access_token, id_token } = data;
-    //   // Use access_token or id_token to fetch user profile
-    //   const { data: profile } = await axios.get(
-    //     "<https://www.googleapis.com/oauth2/v1/userinfo>",
-    //     {
-    //       headers: { Authorization: `Bearer ${access_token}` },
-    //     }
-    //   );
-    //   // Code to handle user authentication and retrieval using the profile data
-    //   res.redirect("/");
-    // } catch (error: any) {
-    //   console.error("Error:", error.response.data.error);
-    //   res.redirect("/login");
-    // }
   };
 }
