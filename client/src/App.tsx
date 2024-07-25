@@ -16,6 +16,8 @@ import { UserProvider } from "./contexts/UserContext";
 import PrivateRoute from "./components/common/PrivateRoute";
 import { useUserContext } from "./hooks/useUserContext";
 import PublicRoute from "./components/common/PublicRoute";
+import AuthSuccess from "./components/auth/AuthSuccess";
+import AuthError from "./components/auth/AuthError";
 
 const theme = createTheme({
   typography: {
@@ -85,7 +87,8 @@ const AppContent: React.FC = () => {
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/auth/google/callback" element={<Signup />} /> */}
+          <Route path="/auth-success" element={<AuthSuccess />} />
+          <Route path="/auth-error" element={<AuthError />} />
         </Route>
       </Routes>
     </>

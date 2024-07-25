@@ -20,6 +20,20 @@ export const useAuthAPI = () => {
     }
   }, []);
 
+  const handleGoogleLogin = useCallback(async (token: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      localStorage.setItem("token", token);
+      return true;
+    } catch (err) {
+      setError("Invalid token. Please try again.");
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   const handleRegister = useCallback(
     async (email: string, password: string) => {
       setIsLoading(true);
@@ -59,6 +73,7 @@ export const useAuthAPI = () => {
     isLoading,
     error,
     handleLogin,
+    handleGoogleLogin,
     handleRegister,
     handleLogout,
     handleTokenValidation,

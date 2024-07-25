@@ -14,6 +14,7 @@ import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useUserContext } from "../../hooks/useUserContext";
+import { getGoogleUrl } from "../../utils/getGoogleUrl";
 
 interface FormData {
   email: string;
@@ -49,11 +50,6 @@ const Signup: React.FC = () => {
         [name]: "",
       }));
     }
-  };
-
-  const handleGoogleSignup = () => {
-    // window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
-    console.log("Attempting to sign up with Google");
   };
 
   const validateForm = (): boolean => {
@@ -103,8 +99,7 @@ const Signup: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 4,
-          py: 4,
+          py: 3,
         }}
       >
         <motion.div
@@ -201,7 +196,7 @@ const Signup: React.FC = () => {
                 fullWidth
                 variant="outlined"
                 startIcon={<GoogleIcon />}
-                onClick={handleGoogleSignup}
+                href={getGoogleUrl()}
                 sx={{ mt: 1, mb: 2 }}
               >
                 Continue with Google

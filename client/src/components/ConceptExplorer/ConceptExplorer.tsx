@@ -7,6 +7,7 @@ import {
   useTheme,
   Fade,
   Container,
+  CircularProgress,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useConceptAPI } from "../../hooks/useConceptAPI";
@@ -52,6 +53,19 @@ const ConceptExplorer: React.FC = () => {
     setUserDescription(value);
   }, []);
 
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="80vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Container maxWidth={false} disableGutters>
       <Box
@@ -60,7 +74,7 @@ const ConceptExplorer: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 4,
+          mt: 2,
           py: 4,
         }}
       >

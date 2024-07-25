@@ -66,7 +66,7 @@ const Login: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 4,
+          mt: 2,
           py: 4,
         }}
       >
