@@ -1,7 +1,12 @@
 import { Request, response, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import { JWT_SECRET } from "../config";
+import {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URI,
+  JWT_SECRET,
+} from "../config";
 import { AuthRequest } from "../middlewares/auth";
 import { OAuth2Client } from "google-auth-library";
 
@@ -56,9 +61,9 @@ export class AuthController {
   static googleCallback = async (req: Request, res: Response) => {
     console.log("Google callback request:", req.query);
     const client = new OAuth2Client(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
+      GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET,
+      GOOGLE_REDIRECT_URI
     );
     try {
       const { code } = req.query;
@@ -74,7 +79,7 @@ export class AuthController {
       // Fetch the user's profile information
       const ticket = await client.verifyIdToken({
         idToken: tokens.id_token!,
-        audience: process.env.GOOGLE_CLIENT_ID,
+        audience: GOOGLE_CLIENT_ID,
       });
 
       const payload = ticket.getPayload();
