@@ -40,7 +40,7 @@ const Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    // window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
+    window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google`, "_self");
     console.log("Attempting to log in with Google");
   };
 

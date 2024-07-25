@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}` || "http://localhost:5000",
 });
 
 api.interceptors.request.use((config) => {
@@ -28,7 +28,7 @@ export const validateToken = async () => {
 };
 
 export const getRandomConcept = async () => {
-  const response = await api.get("/concept");
+  const response = await api.get("/api/concept");
   return response.data;
 };
 
@@ -36,12 +36,12 @@ export const submitDescription = async (
   concept: string,
   description: string
 ) => {
-  const response = await api.post("/evaluate", { concept, description });
+  const response = await api.post("/api/evaluate", { concept, description });
   return response.data;
 };
 
 export const getRandomQuote = async () => {
-  const response = await api.get("/quote");
+  const response = await api.get("/api/quote");
   return response.data;
 };
 
