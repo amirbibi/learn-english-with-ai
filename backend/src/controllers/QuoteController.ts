@@ -4,10 +4,11 @@ import { QuoteRepository } from "../repositories/QuoteRepository";
 export class QuoteController {
   constructor(private quoteRepository: QuoteRepository) {}
 
-  getRandomQuote = (req: Request, res: Response): void => {
+  // Get a random quote
+  getRandomQuote = async (req: Request, res: Response): Promise<void> => {
     try {
-      const quote = this.quoteRepository.getRandomQuote();
-      res.status(200).json(quote);
+      const quote = await this.quoteRepository.getRandomQuote();
+      res.status(200).json({ data: quote });
     } catch (error) {
       console.error("Error fetching random quote:", error);
       res.status(500).json({ error: "Failed to fetch a random quote" });

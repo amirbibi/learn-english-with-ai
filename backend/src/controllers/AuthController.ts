@@ -1,53 +1,60 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
 import config from "../config/index";
-
-import { AuthRequest } from "../middlewares/auth";
-import { OAuth2Client } from "google-auth-library";
+import { AuthRepository } from "../repositories/AuthRepository";
+import { AuthRequest } from "../middlewares/validateJwtToken";
 
 export class AuthController {
-  static register = async (req: Request, res: Response) => {
+  constructor(private authRepository: AuthRepository) {}
+
+  // Create a JWT token
+  private createToken(userId: string): string {
+    return jwt.sign({ userId }, config.JWT_SECRET, { expiresIn: "1h" });
+  }
+
+  // Register a new user
+  register = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
     try {
-      const { email, password } = req.body;
-      const existingUser = await User.findOne({ email });
+      const existingUser = await this.authRepository.findUserByEmail(email);
       if (existingUser) {
-        return res.status(400).json({ message: "User already exists" });
+        res.status(400).json({ message: "User already exists" });
+        return;
       }
-      const user = new User({ email, password });
-      await user.save();
+      await this.authRepository.createUser({ email, password });
       res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
       res.status(500).json({ message: "Error registering user", error });
     }
   };
 
-  static login = async (req: Request, res: Response) => {
+  // Login a user
+  login = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body;
     try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: "Invalid credentials" });
+      const user = await this.authRepository.findUserByEmail(email);
+      if (!user || !(await user.comparePassword(password))) {
+        res.status(400).json({ message: "Invalid credentials" });
+        return;
       }
-      const isMatch = await user.comparePassword(password);
-      if (!isMatch) {
-        return res.status(400).json({ message: "Invalid credentials" });
-      }
-      const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = this.createToken(user._id);
       res.json({ token });
     } catch (error) {
       res.status(500).json({ message: "Error logging in", error });
     }
   };
 
-  static validateToken = async (req: AuthRequest, res: Response) => {
-    console.log("Validating token for user ID:", req.userId);
+  // Get the current user
+  getCurrentUser = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-      const user = await User.findById(req.userId);
+      if (!req.userId) {
+        res.status(400).json({ message: "Invalid user ID" });
+        return;
+      }
+      const user = await this.authRepository.findUserById(req.userId);
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
+        return;
       }
       res.json({ email: user.email });
     } catch (error) {
@@ -55,64 +62,32 @@ export class AuthController {
     }
   };
 
-  static googleCallback = async (req: Request, res: Response) => {
-    console.log("Google callback request:", req.query);
-    const client = new OAuth2Client(
-      config.GOOGLE_CLIENT_ID,
-      config.GOOGLE_CLIENT_SECRET,
-      config.GOOGLE_REDIRECT_URI
-    );
+  // Google OAuth callback
+  googleCallback = async (req: Request, res: Response): Promise<void> => {
+    const { code } = req.query;
+
+    if (typeof code !== "string") {
+      res.status(400).json({ message: "Invalid authorization code" });
+      return;
+    }
+
     try {
-      const { code } = req.query;
-
-      if (typeof code !== "string") {
-        return res.status(400).json({ message: "Invalid authorization code" });
-      }
-
-      // Exchange the authorization code for tokens
-      const { tokens } = await client.getToken(code);
-      client.setCredentials(tokens);
-
-      // Fetch the user's profile information
-      const ticket = await client.verifyIdToken({
-        idToken: tokens.id_token!,
-        audience: config.GOOGLE_CLIENT_ID,
-      });
-
-      const payload = ticket.getPayload();
-      if (!payload) {
-        return res
-          .status(400)
-          .json({ message: "Unable to verify Google token" });
-      }
-
-      const { email, sub: googleId } = payload;
-
-      // Check if the user already exists
-      let user = await User.findOne({ email });
+      const { email, googleId } = await this.authRepository.verifyGoogleToken(
+        code
+      );
+      let user = await this.authRepository.findUserByEmail(email);
 
       if (!user) {
-        // Create a new user if they don't exist
-        user = new User({
+        user = await this.authRepository.createUser({
           email,
           googleId,
           password: Math.random().toString(36).slice(-8),
         });
-        await user.save();
-      } else {
-        // Update the existing user's Google ID if it's not set
-        if (!user.googleId) {
-          user.googleId = googleId;
-          await user.save();
-        }
+      } else if (!user.googleId) {
+        user = await this.authRepository.updateUserGoogleId(user, googleId);
       }
 
-      // Generate a JWT for the user
-      const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
-        expiresIn: "1h",
-      });
-
-      // Redirect the user to the frontend with the token
+      const token = this.createToken(user._id);
       res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {
       console.error("Google callback error:", error);

@@ -15,6 +15,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mongoose": "^5.11.97",
+    "@types/validator": "^13.12.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -23,7 +24,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
     "openai": "^4.0.0",
-    "punycode": "^2.3.1"
+    "punycode": "^2.3.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

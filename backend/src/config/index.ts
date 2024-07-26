@@ -45,6 +45,7 @@ for (const envVar of requiredEnvVars) {
 // Type assertion to tell TypeScript that config is of type Config
 const validatedConfig = config as Config;
 
+// Create an instance of the OpenAI class
 export const openai = new OpenAI({
   apiKey: validatedConfig.OPENAI_API_KEY,
 });

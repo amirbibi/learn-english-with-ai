@@ -1,11 +1,14 @@
 import { openai } from "../config";
 
 export class OpenAIService {
-  async getTutorResponse(
+  // Get a response from the OpenAI API
+  async getResponse(
     instructions: string,
     prompt: string,
-    maxRetries = 3
+    maxRetries = 3,
+    maxTokens = 150
   ): Promise<string> {
+    // Retry the request if it fails (maxRetries times at most)
     for (let i = 0; i < maxRetries; i++) {
       try {
         const response = await openai.chat.completions.create({
@@ -14,6 +17,10 @@ export class OpenAIService {
             { role: "system", content: instructions },
             { role: "user", content: prompt },
           ],
+          temperature: 0.7,
+          top_p: 1,
+          frequency_penalty: 0.2,
+          presence_penalty: 0.2,
         });
         return (
           response.choices[0].message?.content || "Unable to generate response."
@@ -25,9 +32,22 @@ export class OpenAIService {
           );
           continue;
         }
-        throw error;
+        throw this.handleError(error);
       }
     }
     throw new Error("Failed to get response after multiple retries");
+  }
+
+  // Handle OpenAI API errors
+  private handleError(error: any): Error {
+    if (error.response) {
+      return new Error(
+        `OpenAI API error: ${error.response.status} - ${error.response.data}`
+      );
+    } else if (error.request) {
+      return new Error("OpenAI API request failed");
+    } else {
+      return new Error("Error setting up OpenAI API request");
+    }
   }
 }

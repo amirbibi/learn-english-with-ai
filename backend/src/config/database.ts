@@ -5,10 +5,7 @@ export const connectToDatabase = async (
   uri = config.MONGODB_URI
 ): Promise<typeof mongoose> => {
   try {
-    if (!uri) {
-      throw new Error("MONGODB_URI is not defined in the configuration");
-    }
-
+    // Connect to MongoDB
     const connection = await mongoose.connect(uri);
     console.log("Connected to MongoDB");
 

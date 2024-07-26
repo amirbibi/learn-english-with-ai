@@ -2,9 +2,11 @@ import express from "express";
 import { ConceptController } from "../controllers/ConceptController";
 import { ConceptRepository } from "../repositories/ConceptRepository";
 import { OpenAIService } from "../services/OpenAIService";
-import { authMiddleware } from "../middlewares/auth";
+import { validateJwtToken } from "../middlewares/validateJwtToken";
 
 const router = express.Router();
+
+// Create instances
 const conceptRepository = new ConceptRepository();
 const openAIService = new OpenAIService();
 const conceptController = new ConceptController(
@@ -12,7 +14,8 @@ const conceptController = new ConceptController(
   openAIService
 );
 
-router.get("/concept", authMiddleware, conceptController.getRandomConcept);
-router.post("/evaluate", authMiddleware, conceptController.evaluateConcept);
+// Routes
+router.get("/concept", validateJwtToken, conceptController.getRandomConcept);
+router.post("/evaluate", validateJwtToken, conceptController.evaluateConcept);
 
 export default router;

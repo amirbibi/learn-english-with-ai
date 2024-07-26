@@ -4,9 +4,11 @@ import { Quote, QuoteData } from "../types/quote";
 
 export class QuoteRepository {
   private quoteData: QuoteData;
-  private lastQuoteIndex: number | null = null;
+  // Store the ID of the last quote returned to avoid duplicates
+  private lastQuoteId: number | null = null;
 
   constructor() {
+    // Load quote data from JSON file
     const filePath = path.join(process.cwd(), "data", "quotes.json");
     if (!fs.existsSync(filePath)) {
       throw new Error(`Quote data file not found: ${filePath}`);
@@ -14,18 +16,21 @@ export class QuoteRepository {
     this.quoteData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
   }
 
+  // Get a random quote
   getRandomQuote(): Quote {
     const { quotes } = this.quoteData;
+
     if (quotes.length === 0) {
       throw new Error("No quotes available");
     }
 
-    let randomIndex: number;
+    // Get a random quote that is different from the last one
+    let randomQuote;
     do {
-      randomIndex = Math.floor(Math.random() * quotes.length);
-    } while (randomIndex === this.lastQuoteIndex && quotes.length > 1);
+      randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    } while (randomQuote.id === this.lastQuoteId && quotes.length > 1);
 
-    this.lastQuoteIndex = randomIndex;
-    return quotes[randomIndex];
+    this.lastQuoteId = randomQuote.id;
+    return randomQuote;
   }
 }

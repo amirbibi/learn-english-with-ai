@@ -70,6 +70,7 @@ const ConceptExplorer: React.FC = () => {
           transition={{ duration: 0.5 }}
           style={{
             minWidth: "800px",
+            maxWidth: "1200px",
             padding: "0 2rem",
           }}
         >

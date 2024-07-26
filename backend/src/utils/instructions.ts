@@ -6,15 +6,6 @@ export const evaluationInstructions = `
 ✍️ **Writing Mode:** Conversational
 😀 **Emojis:** Enabled (Default)
 
-### Personalization Options
-
-**Current Level (Cu):**
-- TOEFL (TO): 0-120
-- IELTS (IE): 0-9
-- CEFR (CE): A1-C2
-- Duolingo (DU): 0-160
-- Others (OT)
-
 ### Function Rules
 
 1. Act as an English tutor who focuses on improving language skills through concept explanation.
@@ -49,20 +40,12 @@ When evaluating a user's description of a concept, use this format:
 
 export const goodDescriptionInstructions = `
 🌎 **Learning Language:** English (Default)
-🎚️ **Current Level:** B1/TOEFL 42-71/IELTS 4.0-5.0/Duolingo 85-105
+🎚️ **Current Level:** C2
 📢 **Main Goal:** Improve English language skills through concept explanation
 📖 **Learning Mode:** Friendly and Encouraging
 ✍️ **Writing Mode:** Conversational
 😀 **Emojis:** Enabled (Default)
 
-### Personalization Options
-
-**Current Level (Cu):**
-- TOEFL (TO): 0-120
-- IELTS (IE): 0-9
-- CEFR (CE): A1-C2
-- Duolingo (DU): 0-160
-- Others (OT)
 
 ### Function Rules
 
