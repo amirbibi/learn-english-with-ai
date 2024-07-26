@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import { PORT } from "./config";
 import conceptRoutes from "./routes/conceptRoutes";
 import quoteRoutes from "./routes/quoteRoutes";
 import authRoutes from "./routes/authRoutes";
 import { connectToDatabase } from "./config/database";
+import config from "./config";
 
 const app = express();
 
@@ -22,6 +22,6 @@ app.use((req, res, next) => {
   res.status(404).send("Not Found");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is running on port ${config.PORT}`);
 });

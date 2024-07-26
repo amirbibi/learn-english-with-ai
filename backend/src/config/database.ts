@@ -1,17 +1,37 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import config from "./index";
 
-dotenv.config();
-
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/learn_english_ai";
-
-export const connectToDatabase = async () => {
+export const connectToDatabase = async (
+  uri = config.MONGODB_URI
+): Promise<typeof mongoose> => {
   try {
-    await mongoose.connect(MONGODB_URI);
+    if (!uri) {
+      throw new Error("MONGODB_URI is not defined in the configuration");
+    }
+
+    const connection = await mongoose.connect(uri);
     console.log("Connected to MongoDB");
+
+    // Set up connection error handler
+    mongoose.connection.on("error", (error) => {
+      console.error("MongoDB connection error:", error);
+    });
+
+    // Set up disconnection handler
+    mongoose.connection.on("disconnected", () => {
+      console.log("Disconnected from MongoDB");
+    });
+
+    // Handle process termination
+    process.on("SIGINT", async () => {
+      await mongoose.connection.close();
+      console.log("MongoDB connection closed due to application termination");
+      process.exit(0);
+    });
+
+    return connection;
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    console.error("Failed to connect to MongoDB:", error);
     process.exit(1);
   }
 };

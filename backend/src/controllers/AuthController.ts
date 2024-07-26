@@ -1,12 +1,8 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
-import {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI,
-  JWT_SECRET,
-} from "../config";
+import config from "../config/index";
+
 import { AuthRequest } from "../middlewares/auth";
 import { OAuth2Client } from "google-auth-library";
 
@@ -37,7 +33,7 @@ export class AuthController {
       if (!isMatch) {
         return res.status(400).json({ message: "Invalid credentials" });
       }
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
         expiresIn: "1h",
       });
       res.json({ token });
@@ -47,6 +43,7 @@ export class AuthController {
   };
 
   static validateToken = async (req: AuthRequest, res: Response) => {
+    console.log("Validating token for user ID:", req.userId);
     try {
       const user = await User.findById(req.userId);
       if (!user) {
@@ -61,9 +58,9 @@ export class AuthController {
   static googleCallback = async (req: Request, res: Response) => {
     console.log("Google callback request:", req.query);
     const client = new OAuth2Client(
-      GOOGLE_CLIENT_ID,
-      GOOGLE_CLIENT_SECRET,
-      GOOGLE_REDIRECT_URI
+      config.GOOGLE_CLIENT_ID,
+      config.GOOGLE_CLIENT_SECRET,
+      config.GOOGLE_REDIRECT_URI
     );
     try {
       const { code } = req.query;
@@ -79,7 +76,7 @@ export class AuthController {
       // Fetch the user's profile information
       const ticket = await client.verifyIdToken({
         idToken: tokens.id_token!,
-        audience: GOOGLE_CLIENT_ID,
+        audience: config.GOOGLE_CLIENT_ID,
       });
 
       const payload = ticket.getPayload();
@@ -111,12 +108,11 @@ export class AuthController {
       }
 
       // Generate a JWT for the user
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, config.JWT_SECRET, {
         expiresIn: "1h",
       });
 
       // Redirect the user to the frontend with the token
-      // TODO: More secure method to transfer the token
       res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {
       console.error("Google callback error:", error);
