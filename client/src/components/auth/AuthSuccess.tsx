@@ -54,7 +54,6 @@ const AuthSuccess: React.FC = () => {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        height="100vh"
       >
         <CircularProgress size={60} />
         <Alert variant="outlined" severity="info" sx={{ mt: 2, maxWidth: 400 }}>

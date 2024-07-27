@@ -20,6 +20,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useUserContext } from "../../hooks/useUserContext";
 import { getGoogleUrl } from "../../utils/getGoogleUrl";
+import ErrorMessage from "../common/ErrorMessage";
 
 interface FormData {
   email: string;
@@ -224,11 +225,7 @@ const Signup: React.FC = () => {
             >
               {isLoading ? "Signing up..." : "Sign Up"}
             </Button>
-            {error && (
-              <Alert variant="outlined" severity="error" sx={{ mb: 2 }}>
-                {error}
-              </Alert>
-            )}
+            {error && <ErrorMessage message={error} title="Signup Error" />}
             <Divider sx={{ my: 2 }}>OR</Divider>
             <Button
               fullWidth
