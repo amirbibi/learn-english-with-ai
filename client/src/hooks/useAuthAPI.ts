@@ -1,73 +1,87 @@
 import { useState, useCallback } from "react";
 import { login, register, validateToken } from "../services/api";
 
+interface AuthError extends Error {
+  code?: string;
+}
+
 export const useAuthAPI = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = useCallback(async (email: string, password: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const { token } = await login(email, password);
-      localStorage.setItem("token", token);
-      return true;
-    } catch (err) {
-      setError("Invalid credentials. Please try again.");
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  // Handle API calls with error handling
+  const withErrorHandling = useCallback(
+    async <T>(
+      operation: () => Promise<T>,
+      errorMessage: string
+    ): Promise<T | false> => {
+      const handleError = (err: unknown, defaultMessage: string) => {
+        if (err instanceof Error) {
+          setError(
+            (err as AuthError).code
+              ? `${defaultMessage}: ${(err as AuthError).code}`
+              : err.message
+          );
+        } else {
+          setError(defaultMessage);
+        }
+        return false;
+      };
 
-  const handleGoogleLogin = useCallback(async (token: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      localStorage.setItem("token", token);
-      return true;
-    } catch (err) {
-      setError("Invalid token. Please try again.");
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const handleRegister = useCallback(
-    async (email: string, password: string) => {
       setIsLoading(true);
       setError(null);
       try {
-        await register(email, password);
-        return true;
+        return await operation();
       } catch (err) {
-        setError("Registration failed. Please try again.");
+        handleError(err, errorMessage);
         return false;
       } finally {
         setIsLoading(false);
       }
     },
-    []
+    [setIsLoading, setError]
+  );
+
+  const handleLogin = useCallback(
+    (email: string, password: string) =>
+      withErrorHandling(async () => {
+        const { token } = await login(email, password);
+        localStorage.setItem("token", token);
+        return true;
+      }, "Login failed"),
+    [withErrorHandling]
+  );
+
+  const handleGoogleLogin = useCallback(
+    (token: string) =>
+      withErrorHandling(async () => {
+        localStorage.setItem("token", token);
+        return true;
+      }, "Google login failed"),
+    [withErrorHandling]
+  );
+
+  const handleRegister = useCallback(
+    (email: string, password: string) =>
+      withErrorHandling(async () => {
+        await register(email, password);
+        return true;
+      }, "Registration failed"),
+    [withErrorHandling]
   );
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
   }, []);
 
-  const handleTokenValidation = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await validateToken();
-      return response.email;
-    } catch (err) {
-      setError("Token validation failed");
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const handleTokenValidation = useCallback(
+    () =>
+      withErrorHandling(async () => {
+        const response = await validateToken();
+        return response.email;
+      }, "Token validation failed"),
+    [withErrorHandling]
+  );
 
   return {
     isLoading,
