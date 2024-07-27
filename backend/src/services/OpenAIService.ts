@@ -19,8 +19,6 @@ export class OpenAIService {
           ],
           temperature: 0.7,
           top_p: 1,
-          frequency_penalty: 0.2,
-          presence_penalty: 0.2,
         });
         return (
           response.choices[0].message?.content || "Unable to generate response."
