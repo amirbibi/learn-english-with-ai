@@ -8,7 +8,7 @@ import {
   Fade,
   Container,
 } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useConceptAPI } from "../../hooks/useConceptAPI";
 import ConceptDisplay from "./ConceptDisplay";
 import DescriptionInput from "./DescriptionInput";
@@ -22,6 +22,7 @@ const ConceptExplorer: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
   const {
     concept,
@@ -53,49 +54,54 @@ const ConceptExplorer: React.FC = () => {
   }, []);
 
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth="md">
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 2,
-          py: 4,
+          my: { xs: 2, sm: 4 },
         }}
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          style={{
-            minWidth: "800px",
-            maxWidth: "1200px",
-            padding: "0 2rem",
-          }}
+          style={{ width: "100%" }}
         >
           <Paper
             elevation={3}
             sx={{
-              p: { xs: 2, sm: 4 },
-              borderRadius: 4,
+              p: { xs: 2, sm: 3, md: 4 },
+              borderRadius: { xs: 2, sm: 4 },
               bgcolor: "background.paper",
               boxShadow: theme.shadows[10],
             }}
           >
-            <Typography
-              variant="h4"
-              gutterBottom
-              sx={{
-                color: "primary.main",
-                fontWeight: "bold",
-                mb: 4,
-                textAlign: "center",
-              }}
-            >
-              Concept Explorer
-            </Typography>
-            <QuoteDisplay />
+            <AnimatePresence>
+              {!isSubmitted && (
+                <motion.div
+                  initial={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Typography
+                    variant={isMobile ? "h5" : "h4"}
+                    gutterBottom
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: "bold",
+                      mb: { xs: 2, sm: 3, md: 4 },
+                      textAlign: "center",
+                    }}
+                  >
+                    Concept Explorer
+                  </Typography>
+                  <QuoteDisplay />
+                </motion.div>
+              )}
+            </AnimatePresence>
             <ConceptDisplay
               concept={concept}
               isSubmitted={isSubmitted}
@@ -110,6 +116,7 @@ const ConceptExplorer: React.FC = () => {
                     onChange={handleDescriptionChange}
                     isLoading={isLoading}
                     isMobile={isMobile}
+                    isTablet={isTablet}
                   />
                 )}
               </Box>
@@ -124,7 +131,8 @@ const ConceptExplorer: React.FC = () => {
             <EvaluationDisplay
               evaluation={evaluation}
               goodDescription={goodDescription}
-              {...{ isMobile }}
+              isMobile={isMobile}
+              isTablet={isTablet}
             />
           </Paper>
         </motion.div>

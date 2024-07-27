@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, CircularProgress } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 interface SubmitButtonProps {
   isSubmitted: boolean;
@@ -14,38 +21,49 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   disabled,
   onClick,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Button
       variant="contained"
       onClick={onClick}
-      sx={{
-        mb: 3,
-        borderRadius: 2,
+      disabled={disabled || isLoading}
+      startIcon={
+        isLoading ? (
+          <CircularProgress size={16} color="inherit" />
+        ) : isSubmitted ? (
+          <RefreshIcon fontSize="small" />
+        ) : (
+          <SendIcon fontSize="small" />
+        )
+      }
+      sx={(theme) => ({
+        mb: 2,
+        borderRadius: 1.5,
         color: "background.paper",
-        backgroundColor: (theme) =>
-          isSubmitted ? "yellow" : theme.palette.primary.main,
-        fontWeight: isSubmitted ? 700 : 500,
-        transition: "background-color 0.3s ease-in-out",
+        backgroundColor: isSubmitted
+          ? theme.palette.secondary.main
+          : theme.palette.primary.main,
+        fontWeight: isSubmitted ? 600 : 500,
+        transition: "all 0.2s ease-in-out",
+        padding: isMobile ? theme.spacing(0.75, 1.5) : theme.spacing(1, 2),
+        fontSize: isMobile ? "0.8125rem" : "0.875rem",
+        minWidth: isMobile ? "120px" : "150px",
         "&:hover": {
-          backgroundColor: (theme) =>
-            isSubmitted
-              ? theme.palette.primary.light
-              : theme.palette.primary.dark,
+          backgroundColor: isSubmitted
+            ? theme.palette.secondary.dark
+            : theme.palette.primary.dark,
+          transform: "translateY(-1px)",
+          boxShadow: theme.shadows[2],
         },
         "&:disabled": {
-          backgroundColor: (theme) => theme.palette.action.disabledBackground,
-          color: (theme) => theme.palette.action.disabled,
+          backgroundColor: theme.palette.action.disabledBackground,
+          color: theme.palette.action.disabled,
         },
-      }}
-      disabled={disabled || isLoading}
+      })}
     >
-      {isLoading ? (
-        <CircularProgress size={24} color="inherit" />
-      ) : isSubmitted ? (
-        "Generate another concept"
-      ) : (
-        "Submit Description"
-      )}
+      {isLoading ? "Processing..." : isSubmitted ? "New Concept" : "Submit"}
     </Button>
   );
 };

@@ -1,4 +1,11 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+  useMemo,
+} from "react";
 import { useAuthAPI } from "../hooks/useAuthAPI";
 
 interface User {
@@ -32,70 +39,103 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     handleTokenValidation,
   } = useAuthAPI();
 
+  // Validate token keep user logged in
+  const validateToken = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const email = await handleTokenValidation();
+      if (email) {
+        setUser({ email });
+      }
+    } catch (error) {
+      console.error("Token validation failed:", error);
+      localStorage.removeItem("token");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [handleTokenValidation]);
+
   useEffect(() => {
-    const validateToken = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
+    validateToken();
+  }, [validateToken]);
+
+  // Using useCallback to prevent unnecessary re-renders and memoize the function
+  const login = useCallback(
+    async (email: string, password: string): Promise<boolean> => {
+      try {
+        const success = await handleLogin(email, password);
+        if (success) {
+          setUser({ email });
+        }
+        return success;
+      } catch (error) {
+        console.error("Login failed:", error);
+        return false;
+      }
+    },
+    [handleLogin]
+  );
+
+  // Using useCallback to prevent unnecessary re-renders and memoize the function
+  const googleLogin = useCallback(
+    async (token: string): Promise<boolean> => {
+      try {
+        const success = await handleGoogleLogin(token);
+        if (success) {
           const email = await handleTokenValidation();
           if (email) {
             setUser({ email });
+            return true;
           }
-        } catch (error) {
-          console.error("Token validation failed:", error);
-          localStorage.removeItem("token");
+          throw new Error("Failed to get user email after Google login");
         }
-      }
-      setIsLoading(false);
-    };
-
-    validateToken();
-  }, [handleTokenValidation]);
-
-  const login = async (email: string, password: string) => {
-    const success = await handleLogin(email, password);
-    if (success) {
-      setUser({ email });
-    }
-    return success;
-  };
-
-  const googleLogin = async (token: string) => {
-    const success = await handleGoogleLogin(token);
-    if (success) {
-      try {
-        // Validate the token and get the user's email
-        const email = await handleTokenValidation();
-        if (email) {
-          setUser({ email });
-          return true;
-        } else {
-          console.error("Failed to get user email after Google login");
-          return false;
-        }
+        return false;
       } catch (error) {
-        console.error("Error validating token after Google login:", error);
+        console.error("Google login failed:", error);
         return false;
       }
-    }
-    return false;
-  };
+    },
+    [handleGoogleLogin, handleTokenValidation]
+  );
 
-  const register = async (email: string, password: string) => {
-    const success = await handleRegister(email, password);
-    return success;
-  };
+  // Using useCallback to prevent unnecessary re-renders and memoize the function
+  const register = useCallback(
+    async (email: string, password: string): Promise<boolean> => {
+      try {
+        return await handleRegister(email, password);
+      } catch (error) {
+        console.error("Registration failed:", error);
+        return false;
+      }
+    },
+    [handleRegister]
+  );
 
-  const logout = () => {
+  const logout = useCallback(() => {
     handleLogout();
     setUser(null);
-  };
+    localStorage.removeItem("token");
+  }, [handleLogout]);
+
+  // Using useMemo to prevent unnecessary re-renders and memoize the context value
+  const contextValue = useMemo<UserContextType>(
+    () => ({
+      user,
+      setUser,
+      login,
+      googleLogin,
+      register,
+      logout,
+      isLoading,
+    }),
+    [user, login, googleLogin, register, logout, isLoading]
+  );
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser, login, googleLogin, register, logout, isLoading }}
-    >
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };

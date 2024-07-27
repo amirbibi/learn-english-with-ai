@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Tooltip, Skeleton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 interface ConceptDisplayProps {
@@ -20,34 +20,43 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
       sx={{
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         mb: 3,
-        position: "relative",
+        flexWrap: "wrap",
+        gap: 2,
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{
-          color: "secondary.main",
-          pr: isSubmitted ? 0 : 6,
-          wordBreak: "break-word",
-        }}
-      >
-        Concept: {concept}
-      </Typography>
-      {!isSubmitted && (
-        <IconButton
-          onClick={onRefresh}
-          size="small"
-          aria-label="refresh concept"
+      {isLoading ? (
+        <Skeleton variant="text" width="80%" height={40} />
+      ) : (
+        <Typography
+          variant="h6"
+          component="h2"
           sx={{
             color: "secondary.main",
-            position: "absolute",
-            right: 0,
+            wordBreak: "break-word",
+            flexGrow: 1,
           }}
-          disabled={isLoading}
         >
-          <RefreshIcon />
-        </IconButton>
+          Concept: {concept}
+        </Typography>
+      )}
+      {!isSubmitted && (
+        <Tooltip title="Get new concept">
+          <span>
+            <IconButton
+              onClick={onRefresh}
+              size="small"
+              aria-label="get new concept"
+              sx={{
+                color: "secondary.main",
+              }}
+              disabled={isLoading}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
       )}
     </Box>
   );
