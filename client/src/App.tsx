@@ -72,7 +72,7 @@ const AppContent: React.FC = () => {
         alignItems="center"
         height="100vh"
       >
-        <CircularProgress />
+        <CircularProgress size={60} />
       </Box>
     );
   }

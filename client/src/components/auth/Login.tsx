@@ -8,11 +8,16 @@ import {
   Container,
   Link,
   Divider,
+  InputAdornment,
+  IconButton,
+  Alert,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useUserContext } from "../../hooks/useUserContext";
 import { getGoogleUrl } from "../../utils/getGoogleUrl";
 
@@ -22,29 +27,34 @@ interface FormData {
 }
 
 const Login: React.FC = () => {
+  // Initialize state variables
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Get user context, theme and navigation functions
+  const { login } = useUserContext();
   const theme = useTheme();
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { login } = useUserContext();
 
+  // Handle form input changes
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
+
     try {
+      // Attempt to log in with the provided credentials
       const success = await login(formData.email, formData.password);
       if (success) {
         navigate("/");
@@ -58,73 +68,80 @@ const Login: React.FC = () => {
     }
   };
 
+  const togglePasswordVisibility = () => setShowPassword((show) => !show);
+
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container disableGutters>
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          mt: 2,
-          py: 4,
         }}
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          style={{
-            width: "100%",
-            maxWidth: "500px",
-          }}
+          style={{ width: "100%", maxWidth: "400px" }}
         >
           <Paper
             elevation={3}
             sx={{
-              p: { xs: 2, sm: 4 },
-              borderRadius: 4,
+              p: { xs: 3, sm: 4 },
+              borderRadius: 2,
               bgcolor: "background.paper",
               boxShadow: theme.shadows[10],
             }}
           >
             <Typography
-              component="h1"
               variant="h4"
-              sx={{ mb: 3, textAlign: "center", fontWeight: 700 }}
+              component="h1"
+              gutterBottom
+              align="center"
+              fontWeight="bold"
             >
               Login
             </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ width: "100%" }}
-            >
+            <Box component="form" onSubmit={handleSubmit} noValidate>
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
                 autoFocus
                 value={formData.email}
                 onChange={handleChange}
               />
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
-                autoComplete="current-password"
                 value={formData.password}
                 onChange={handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={togglePasswordVisibility}
+                        edge="end"
+                      >
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <Button
                 type="submit"
@@ -136,9 +153,9 @@ const Login: React.FC = () => {
                 {isLoading ? "Logging in..." : "Sign In"}
               </Button>
               {error && (
-                <Typography color="error" sx={{ mb: 2, textAlign: "center" }}>
+                <Alert variant="outlined" severity="error" sx={{ mb: 2 }}>
                   {error}
-                </Typography>
+                </Alert>
               )}
               <Divider sx={{ my: 2 }}>OR</Divider>
               <Button
@@ -146,15 +163,15 @@ const Login: React.FC = () => {
                 variant="outlined"
                 startIcon={<GoogleIcon />}
                 href={getGoogleUrl()}
-                sx={{ mt: 1, mb: 2 }}
+                sx={{ mb: 2 }}
               >
                 Continue with Google
               </Button>
-              <Box sx={{ textAlign: "center" }}>
+              <Typography align="center">
                 <Link component={RouterLink} to="/signup" variant="body2">
                   Don't have an account? Sign up
                 </Link>
-              </Box>
+              </Typography>
             </Box>
           </Paper>
         </motion.div>
