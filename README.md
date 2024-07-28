@@ -1,10 +1,10 @@
-# Learn English with AI
+# Learn with AI
 
 ## 📚 About
 
 "To truly master a language, you must be able to explain concepts within it." This fundamental insight inspired the creation of Learn English with AI, an innovative web application designed to help people improve their English language skills.
 
-"Learn English with AI" goes beyond traditional language learning methods by challenging users to explain randomly generated concepts in English. 
+"Learn English with AI" goes beyond traditional language learning methods by challenging users to explain randomly generated concepts in English.
 This approach not only enhances vocabulary and writing skills but also deepens conceptual understanding and improves the ability to articulate complex ideas — a crucial skill for true language fluency.
 
 By combining cutting-edge AI technology with this unique learning philosophy, we've created a platform that provides:
@@ -34,25 +34,30 @@ Whether you're a beginner looking to build confidence in expressing ideas, or an
 ### Installation
 
 1. Clone the repository:
+
    ```
    git clone https://github.com/your-username/learn-english-with-ai.git
    ```
 
 2. Navigate to the project directory:
+
    ```
    cd learn-english-with-ai
    ```
 
 3. Install dependencies for both frontend and backend:
+
    ```
    cd frontend && npm install
    cd ../backend && npm install
    ```
 
 4. Set up environment variables:
+
    - Add necessary environment variables (e.g., `PORT`, `OPENAI_API_KEY`) in the ".env" file
 
 5. Start the backend server:
+
    ```
    cd backend && npm run dev
    ```

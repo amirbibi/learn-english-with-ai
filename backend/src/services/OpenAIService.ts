@@ -5,8 +5,7 @@ export class OpenAIService {
   async getResponse(
     instructions: string,
     prompt: string,
-    maxRetries = 3,
-    maxTokens = 150
+    maxRetries = 3
   ): Promise<string> {
     // Retry the request if it fails (maxRetries times at most)
     for (let i = 0; i < maxRetries; i++) {
