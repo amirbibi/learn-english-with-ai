@@ -15,12 +15,14 @@ const EvaluationDisplay: React.FC<EvaluationDisplayProps> = ({
   isMobile,
   isTablet,
 }) => {
+  // Content styles for evaluation and model description content
   const contentStyles = {
     pl: isMobile ? 1 : 2,
     borderLeft: "4px solid",
     py: isMobile ? 0.5 : 1,
   };
 
+  // Title styles for evaluation and model description titles
   const titleStyles = {
     fontWeight: "bold",
     mb: isMobile ? 0.5 : 1,

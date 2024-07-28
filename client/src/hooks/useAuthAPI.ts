@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { login, register, validateToken } from "../services/api";
+import { api } from "../services/apiService";
 
 interface AuthError extends Error {
   code?: string;
@@ -45,7 +45,7 @@ export const useAuthAPI = () => {
   const handleLogin = useCallback(
     (email: string, password: string) =>
       withErrorHandling(async () => {
-        const { token } = await login(email, password);
+        const { token } = await api.login(email, password);
         localStorage.setItem("token", token);
         return true;
       }, "Login failed"),
@@ -64,7 +64,7 @@ export const useAuthAPI = () => {
   const handleRegister = useCallback(
     (email: string, password: string) =>
       withErrorHandling(async () => {
-        await register(email, password);
+        await api.register(email, password);
         return true;
       }, "Registration failed"),
     [withErrorHandling]
@@ -77,7 +77,7 @@ export const useAuthAPI = () => {
   const handleTokenValidation = useCallback(
     () =>
       withErrorHandling(async () => {
-        const response = await validateToken();
+        const response = await api.validateToken();
         return response.email;
       }, "Token validation failed"),
     [withErrorHandling]

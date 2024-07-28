@@ -1,8 +1,10 @@
 import { Typography } from "@mui/material";
 
 export const formatExplanation = (text: string) => {
+  // Split the text into paragraphs
   const paragraphs = text.split("\n\n");
 
+  // Map over each paragraph and format it accordingly
   return paragraphs.map((paragraph, index) => {
     if (paragraph.startsWith("📚")) {
       return (
@@ -13,7 +15,7 @@ export const formatExplanation = (text: string) => {
     } else {
       const formattedParagraph = paragraph
         .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/🧠|🌟|🔍|💡|🔼|❓/g, "<br>$&")
+        // .replace(/🧠|🌟|🔍|💡|🔼|❓/g, "<br>$&")
         .replace(/\n/g, "<br>");
 
       return (

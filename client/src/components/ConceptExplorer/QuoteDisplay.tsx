@@ -9,7 +9,10 @@ import {
 import { useQuoteAPI } from "../../hooks/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
+  // Get quote data and functions from custom hook
   const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
+
+  // Get theme and media query functions
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));

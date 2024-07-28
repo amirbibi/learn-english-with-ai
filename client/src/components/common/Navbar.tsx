@@ -17,6 +17,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useUserContext } from "../../hooks/useUserContext";
 
 const Navbar: React.FC = () => {
+  // Initialize state variables
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -49,7 +50,12 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <AppBar position="static" color="transparent" elevation={0}>
+    <AppBar
+      position="static"
+      color="transparent"
+      elevation={0}
+      sx={{ maxHeight: "1.5rem" }}
+    >
       <Toolbar>
         <Box
           component={RouterLink}

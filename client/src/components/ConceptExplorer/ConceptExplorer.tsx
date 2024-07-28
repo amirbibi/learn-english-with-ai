@@ -18,12 +18,16 @@ import ErrorMessage from "../common/ErrorMessage";
 import QuoteDisplay from "./QuoteDisplay";
 
 const ConceptExplorer: React.FC = () => {
+  // Initialize state variables
   const [userDescription, setUserDescription] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  // Get theme and media query functions
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Get concept data and functions from custom hook
   const {
     concept,
     evaluation,
@@ -34,21 +38,25 @@ const ConceptExplorer: React.FC = () => {
     submitDescription,
   } = useConceptAPI();
 
+  // Fetch a random concept on component mount
   useEffect(() => {
     getRandomConcept();
   }, [getRandomConcept]);
 
+  // Handle form submission
   const handleSubmit = async () => {
     await submitDescription(concept, userDescription);
     setIsSubmitted(true);
   };
 
+  // Handle new concept button click
   const handleNewConcept = () => {
     setUserDescription("");
     setIsSubmitted(false);
     getRandomConcept();
   };
 
+  // Handle user description input changes
   const handleDescriptionChange = useCallback((value: string) => {
     setUserDescription(value);
   }, []);

@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { getRandomQuote } from "../services/api";
+import { api } from "../services/apiService";
 import { Quote } from "../types/quote";
 
 export const useQuoteAPI = () => {
@@ -7,11 +7,12 @@ export const useQuoteAPI = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch a random quote from the API
   const fetchRandomQuote = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await getRandomQuote();
+      const response = await api.getRandomQuote();
       setQuote(response.data);
     } catch (err) {
       setError("Failed to fetch a new quote. Please try again.");

@@ -71,107 +71,107 @@ const Login: React.FC = () => {
   const togglePasswordVisibility = () => setShowPassword((show) => !show);
 
   return (
-    <Container disableGutters>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+    <Container
+      disableGutters
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        overflow: "hidden",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ width: "100%", maxWidth: "400px" }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ width: "100%", maxWidth: "400px" }}
+        <Paper
+          elevation={3}
+          sx={{
+            p: { xs: 3, sm: 4 },
+            borderRadius: 2,
+            bgcolor: "background.paper",
+            boxShadow: theme.shadows[10],
+          }}
         >
-          <Paper
-            elevation={3}
-            sx={{
-              p: { xs: 3, sm: 4 },
-              borderRadius: 2,
-              bgcolor: "background.paper",
-              boxShadow: theme.shadows[10],
-            }}
+          <Typography
+            variant="h4"
+            component="h1"
+            gutterBottom
+            align="center"
+            fontWeight="bold"
           >
-            <Typography
-              variant="h4"
-              component="h1"
-              gutterBottom
-              align="center"
-              fontWeight="bold"
+            Login
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoFocus
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? "Logging in..." : "Sign In"}
+            </Button>
+            {error && <ErrorMessage message={error} title="Login Error" />}
+            <Divider sx={{ my: 2 }}>OR</Divider>
+            <Button
+              fullWidth
+              variant="outlined"
+              startIcon={<GoogleIcon />}
+              href={getGoogleUrl()}
+              sx={{ mb: 2 }}
+            >
+              Continue with Google
+            </Button>
+            <Typography align="center">
+              <Link component={RouterLink} to="/signup" variant="body2">
+                Don't have an account? Sign up
+              </Link>
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoFocus
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={formData.password}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={togglePasswordVisibility}
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityOffIcon />
-                        ) : (
-                          <VisibilityIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                disabled={isLoading}
-              >
-                {isLoading ? "Logging in..." : "Sign In"}
-              </Button>
-              {error && <ErrorMessage message={error} title="Login Error" />}
-              <Divider sx={{ my: 2 }}>OR</Divider>
-              <Button
-                fullWidth
-                variant="outlined"
-                startIcon={<GoogleIcon />}
-                href={getGoogleUrl()}
-                sx={{ mb: 2 }}
-              >
-                Continue with Google
-              </Button>
-              <Typography align="center">
-                <Link component={RouterLink} to="/signup" variant="body2">
-                  Don't have an account? Sign up
-                </Link>
-              </Typography>
-            </Box>
-          </Paper>
-        </motion.div>
-      </Box>
+          </Box>
+        </Paper>
+      </motion.div>
     </Container>
   );
 };

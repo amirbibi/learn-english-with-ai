@@ -23,6 +23,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
   isMobile,
   isTablet,
 }) => {
+  // Handle clearing the description input when submitting
   const handleClear = () => {
     onChange("");
   };

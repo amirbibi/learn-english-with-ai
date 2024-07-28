@@ -21,6 +21,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   disabled,
   onClick,
 }) => {
+  // Get theme and media query functions
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

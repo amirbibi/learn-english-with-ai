@@ -1,7 +1,5 @@
 import { useState, useCallback } from "react";
-import { getRandomConcept, submitDescription } from "../services/api";
-import { Concept } from "../types/concept";
-import { Evaluation } from "../types/evaluation";
+import { api } from "../services/apiService";
 
 export const useConceptAPI = () => {
   const [concept, setConcept] = useState<string>("");
@@ -10,11 +8,12 @@ export const useConceptAPI = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  // Fetch a random concept from the API
   const fetchRandomConcept = useCallback(async () => {
     setIsLoading(true);
     setError("");
     try {
-      const newConcept: Concept = await getRandomConcept();
+      const newConcept = await api.getRandomConcept();
       setConcept(newConcept.name);
       setEvaluation("");
       setGoodDescription("");
@@ -25,15 +24,13 @@ export const useConceptAPI = () => {
     }
   }, []);
 
+  // Submit a description for evaluation
   const evaluateDescription = useCallback(
     async (concept: string, description: string) => {
       setIsLoading(true);
       setError("");
       try {
-        const result: Evaluation = await submitDescription(
-          concept,
-          description
-        );
+        const result = await api.submitDescription(concept, description);
         setEvaluation(result.evaluation);
         setGoodDescription(result.goodDescription);
       } catch (err) {
