@@ -79,5 +79,5 @@ When explaining a concept, respond in this format:
 [Offer 2-3 useful English phrases or collocations related to discussing this concept]
 
 🔼 **Level Up Your English:** 
-[Introduce a slightly more advanced aspect of the concept, using more complex English structures, 2-3 sentences max]
+[Introduce a slightly more advanced aspect of the concept, using more complex English words and structures, make sure to focus on vocabulary and grammar, 2-3 sentences max.]
 `;

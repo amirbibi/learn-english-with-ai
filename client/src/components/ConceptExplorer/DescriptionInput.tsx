@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  TextField,
-  Typography,
-  Box,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
+import { TextField, Typography, Box } from "@mui/material";
 
 interface DescriptionInputProps {
   value: string;
@@ -23,11 +16,6 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
   isMobile,
   isTablet,
 }) => {
-  // Handle clearing the description input when submitting
-  const handleClear = () => {
-    onChange("");
-  };
-
   return (
     <Box sx={{ mb: 3 }}>
       <Typography
@@ -49,21 +37,6 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={isLoading}
-        InputProps={{
-          endAdornment:
-            value && !isLoading ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="clear description"
-                  onClick={handleClear}
-                  edge="end"
-                  size="small"
-                >
-                  <ClearIcon />
-                </IconButton>
-              </InputAdornment>
-            ) : null,
-        }}
         sx={(theme) => ({
           "& .MuiOutlinedInput-root": {
             borderRadius: isMobile ? 1 : 2,
