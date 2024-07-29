@@ -17,13 +17,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useUserContext } from "../../hooks/useUserContext";
-import { useTheme } from "../../contexts/ThemeContext";
+import { useThemeContext } from "../../hooks/useThemeContext";
 
 const Navbar: React.FC = () => {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
   const muiTheme = useMuiTheme();
-  const { mode, toggleMode } = useTheme();
+  const { mode, toggleMode } = useThemeContext();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

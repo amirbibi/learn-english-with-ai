@@ -113,6 +113,7 @@ const Signup: React.FC = () => {
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
+        py: { xs: 2, sm: 4 },
       }}
     >
       <motion.div

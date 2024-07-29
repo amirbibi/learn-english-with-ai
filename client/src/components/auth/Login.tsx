@@ -78,6 +78,7 @@ const Login: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         overflow: "hidden",
+        py: { xs: 2, sm: 4 },
       }}
     >
       <motion.div
