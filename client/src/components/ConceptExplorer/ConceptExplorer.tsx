@@ -45,8 +45,8 @@ const ConceptExplorer: React.FC = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
-    await submitDescription(concept, userDescription);
     setIsSubmitted(true);
+    await submitDescription(concept, userDescription);
   };
 
   // Handle new concept button click
@@ -118,15 +118,15 @@ const ConceptExplorer: React.FC = () => {
             />
             <Fade in={!isSubmitted} timeout={500}>
               <Box>
-                {!isSubmitted && (
-                  <DescriptionInput
-                    value={userDescription}
-                    onChange={handleDescriptionChange}
-                    isLoading={isLoading}
-                    isMobile={isMobile}
-                    isTablet={isTablet}
-                  />
-                )}
+                <DescriptionInput
+                  value={userDescription}
+                  onChange={handleDescriptionChange}
+                  isLoading={isLoading}
+                  isMobile={isMobile}
+                  isTablet={isTablet}
+                  isSubmitted={isSubmitted}
+                  displayStyle={isSubmitted ? "none" : ""}
+                />
               </Box>
             </Fade>
             <SubmitButton

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { TextField, Typography, Box } from "@mui/material";
+import SpeechToText from "./SpeechToText";
 
 interface DescriptionInputProps {
   value: string;
@@ -7,6 +8,8 @@ interface DescriptionInputProps {
   isLoading: boolean;
   isMobile: boolean;
   isTablet: boolean;
+  isSubmitted: boolean;
+  displayStyle: string;
 }
 
 const DescriptionInput: React.FC<DescriptionInputProps> = ({
@@ -15,9 +18,26 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
   isLoading,
   isMobile,
   isTablet,
+  isSubmitted,
+  displayStyle,
 }) => {
+  const handleTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+      // TODO: Change the transcript to the value of the input field in the SpeechToText component child component
+    },
+    [onChange]
+  );
+
+  const updateTranscript = useCallback(
+    (transcript: string) => {
+      onChange(transcript);
+    },
+    [onChange]
+  );
+
   return (
-    <Box sx={{ mb: 3 }}>
+    <Box sx={{ mb: 3, display: displayStyle }}>
       <Typography
         variant={isMobile ? "body1" : "subtitle1"}
         sx={{
@@ -35,7 +55,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         variant="outlined"
         placeholder="Describe the concept in your own words..."
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleTextChange}
         disabled={isLoading}
         sx={(theme) => ({
           "& .MuiOutlinedInput-root": {
@@ -53,6 +73,12 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
           },
         })}
       />
+      <Box mt={2}>
+        <SpeechToText
+          onTranscriptUpdate={updateTranscript}
+          isSubmitted={isSubmitted}
+        />
+      </Box>
     </Box>
   );
 };
