@@ -5,8 +5,8 @@ import {
   ValidateTokenResponse,
   Concept,
   EvaluationResponse,
-  QuoteResponse,
 } from "../types/api";
+import { Quote } from "../types/quote";
 
 class ApiService {
   private api: AxiosInstance;
@@ -66,8 +66,8 @@ class ApiService {
     return response.data;
   }
 
-  async getRandomQuote(): Promise<QuoteResponse> {
-    const response = await this.api.get<QuoteResponse>("/quote");
+  async getRandomQuote(): Promise<Quote> {
+    const response = await this.api.get<Quote>("/quote");
     return response.data;
   }
 }

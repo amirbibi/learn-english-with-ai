@@ -1,36 +1,50 @@
-import fs from "fs";
-import path from "path";
-import { Concept, ConceptData } from "../types/concept";
+import { ConceptModel } from "../models/ConceptModel";
+import { Concept } from "../types/concept";
+import { Document } from "mongoose";
+
+interface ConceptDocument extends Concept, Document {}
 
 export class ConceptRepository {
-  private conceptData: ConceptData;
-  // Store the ID of the last concept returned to avoid duplicates
-  private lastConceptId: number | null = null;
+  private lastFetchedConceptName: string | null = null;
 
-  constructor() {
-    // Load concept data from JSON file
-    const filePath = path.join(process.cwd(), "data", "concepts.json");
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`Concept data file not found: ${filePath}`);
-    }
-    this.conceptData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  }
+  async getRandomConcept(): Promise<Concept> {
+    const count = await ConceptModel.countDocuments();
 
-  // Get a random concept
-  getRandomConcept(): Concept {
-    const { concepts } = this.conceptData;
-
-    if (concepts.length === 0) {
+    if (count === 0) {
       throw new Error("No concepts available");
     }
 
-    // Get a random concept that is different from the last one
-    let randomConcept;
-    do {
-      randomConcept = concepts[Math.floor(Math.random() * concepts.length)];
-    } while (randomConcept.id === this.lastConceptId && concepts.length > 1);
+    return this.getRandomConceptDifferentFromLast(count);
+  }
 
-    this.lastConceptId = randomConcept.id;
+  private async getRandomConceptDifferentFromLast(
+    count: number
+  ): Promise<Concept> {
+    let randomConcept: ConceptDocument | null = null;
+
+    while (!randomConcept) {
+      const random = Math.floor(Math.random() * count);
+      randomConcept = await this.findRandomConcept(random);
+
+      // If we found a concept but it's the same as the last one
+      // set randomConcept back to null to try again
+      if (randomConcept && randomConcept.name === this.lastFetchedConceptName) {
+        randomConcept = null;
+      }
+    }
+
+    if (!randomConcept) {
+      throw new Error("Failed to retrieve a different random concept");
+    }
+
+    this.lastFetchedConceptName = randomConcept.name;
+
     return randomConcept;
+  }
+
+  private async findRandomConcept(
+    skip: number
+  ): Promise<ConceptDocument | null> {
+    return ConceptModel.findOne().skip(skip);
   }
 }

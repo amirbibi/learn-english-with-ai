@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Box,
   Paper,
@@ -27,6 +27,9 @@ const ConceptExplorer: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
+  // Initialize ref for fetched flag
+  const conceptFetchedRef = useRef(false);
+
   // Get concept data and functions from custom hook
   const {
     concept,
@@ -40,7 +43,10 @@ const ConceptExplorer: React.FC = () => {
 
   // Fetch a random concept on component mount
   useEffect(() => {
-    getRandomConcept();
+    if (!conceptFetchedRef.current) {
+      getRandomConcept();
+      conceptFetchedRef.current = true;
+    }
   }, [getRandomConcept]);
 
   // Handle form submission

@@ -12,8 +12,8 @@ export const useQuoteAPI = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.getRandomQuote();
-      setQuote(response.data);
+      const newQuote = await api.getRandomQuote();
+      setQuote(newQuote);
     } catch (err) {
       setError("Failed to fetch a new quote. Please try again.");
     } finally {

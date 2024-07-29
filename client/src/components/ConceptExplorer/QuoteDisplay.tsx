@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Typography,
   Box,
@@ -9,20 +9,19 @@ import {
 import { useQuoteAPI } from "../../hooks/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
-  // Get quote data and functions from custom hook
   const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
-
-  // Get theme and media query functions
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const quoteFetchedRef = useRef(false);
 
-  // Fetch a random quote on component mount
   useEffect(() => {
-    fetchRandomQuote();
+    if (!quoteFetchedRef.current) {
+      fetchRandomQuote();
+      quoteFetchedRef.current = true;
+    }
   }, [fetchRandomQuote]);
 
-  // Display error message if quote fetch fails
   if (error) {
     return (
       <Typography color="error" align="center" sx={{ mb: 3 }}>
@@ -52,7 +51,6 @@ const QuoteDisplay: React.FC = () => {
               color: "text.secondary",
               fontSize: isMobile ? "0.9rem" : isTablet ? "1rem" : "1.1rem",
               mb: 1,
-              // Add quotation marks before and after the quote
               "&::before": { content: '"\\201C"', marginRight: "0.2em" },
               "&::after": { content: '"\\201D"', marginLeft: "0.2em" },
             }}
@@ -65,7 +63,6 @@ const QuoteDisplay: React.FC = () => {
             sx={{
               color: "text.secondary",
               fontSize: isMobile ? "0.8rem" : "0.9rem",
-              // Add an em dash before the author
               "&::before": { content: '"— "' },
             }}
           >

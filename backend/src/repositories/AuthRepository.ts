@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../models/UserModel";
 import { OAuth2Client } from "google-auth-library";
 import config from "../config/index";
 

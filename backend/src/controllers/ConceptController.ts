@@ -13,9 +13,14 @@ export class ConceptController {
   ) {}
 
   // Get a random concept
-  getRandomConcept = (req: Request, res: Response): void => {
-    const concept = this.conceptRepository.getRandomConcept();
-    res.json({ name: concept.name });
+  getRandomConcept = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const concept = await this.conceptRepository.getRandomConcept();
+      res.status(200).json(concept);
+    } catch (error) {
+      console.error("Error fetching random quote:", error);
+      res.status(500).json({ error: "Failed to fetch a random quote" });
+    }
   };
 
   // Evaluate a user's concept description

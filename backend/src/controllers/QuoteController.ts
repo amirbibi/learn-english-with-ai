@@ -8,7 +8,7 @@ export class QuoteController {
   getRandomQuote = async (req: Request, res: Response): Promise<void> => {
     try {
       const quote = await this.quoteRepository.getRandomQuote();
-      res.status(200).json({ data: quote });
+      res.status(200).json(quote);
     } catch (error) {
       console.error("Error fetching random quote:", error);
       res.status(500).json({ error: "Failed to fetch a random quote" });
