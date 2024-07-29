@@ -35,7 +35,7 @@ const createAppTheme = (mode: PaletteMode): Theme =>
       ...(mode === "light"
         ? {
             primary: { main: "#121212" },
-            secondary: { main: "#03DAC6" },
+            secondary: { main: "#028db3" },
             background: {
               default: "#FFFFFF",
               paper: "#F5F5F5",

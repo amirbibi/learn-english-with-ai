@@ -24,7 +24,7 @@ const QuoteDisplay: React.FC = () => {
 
   if (error) {
     return (
-      <Typography color="error" align="center" sx={{ mb: 3 }}>
+    <Typography color="error" align="center" sx={{ mb: 3 }}>
         Failed to load quote. Please try again later.
       </Typography>
     );
