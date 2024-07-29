@@ -9,19 +9,22 @@ import {
   Menu,
   MenuItem,
   useMediaQuery,
-  useTheme,
+  useTheme as useMuiTheme,
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import LogoDevIcon from "@mui/icons-material/LogoDev";
 import MenuIcon from "@mui/icons-material/Menu";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useUserContext } from "../../hooks/useUserContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Navbar: React.FC = () => {
-  // Initialize state variables
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const muiTheme = useMuiTheme();
+  const { mode, toggleMode } = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleLogout = () => {
@@ -131,6 +134,9 @@ const Navbar: React.FC = () => {
             ))}
           </Box>
         )}
+        <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
+          {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

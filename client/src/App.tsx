@@ -1,17 +1,24 @@
 import React from "react";
-import {
-  ThemeProvider,
-  CssBaseline,
-  GlobalStyles,
-  Box,
-  Container,
-} from "@mui/material";
+import { CssBaseline, GlobalStyles, Box, Container } from "@mui/material";
 import { UserProvider } from "./contexts/UserContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { useUserContext } from "./hooks/useUserContext";
 import Navbar from "./components/common/Navbar";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import { AppRoutes } from "./routes";
-import { theme, globalStyles } from "./theme";
+
+const globalStyles = {
+  "@import":
+    "url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap')",
+  body: {
+    margin: 0,
+    padding: 0,
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: '"Poppins", sans-serif',
+  },
+};
 
 const AppContent: React.FC = () => {
   const { isLoading } = useUserContext();
@@ -42,7 +49,7 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider>
     <CssBaseline />
     <GlobalStyles styles={globalStyles} />
     <UserProvider>
