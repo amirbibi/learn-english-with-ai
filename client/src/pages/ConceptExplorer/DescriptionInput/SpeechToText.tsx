@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from "react";
-import { Button, Stack, Snackbar } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Stack, Box } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import "regenerator-runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import ErrorMessage from "../../../components/ui/ErrorMessage";
 
 interface SpeechToTextProps {
   onTranscriptUpdate: (transcript: string) => void;
@@ -17,20 +18,36 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
   isDisabled,
 }) => {
   const [error, setError] = useState<string | null>(null);
-  const { transcript, listening, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
+  const {
+    transcript,
+    resetTranscript,
+    listening,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
 
   const handleStartListening = useCallback(() => {
     setError(null);
-    SpeechRecognition.startListening({ continuous: true }).catch(() => {
+    SpeechRecognition.startListening({ continuous: true }).catch((err) => {
+      console.error(err);
       setError("Failed to start speech recognition. Please try again.");
     });
   }, []);
 
   const handleStopListening = useCallback(() => {
     SpeechRecognition.stopListening();
+  }, []);
+
+  const handleTranscriptUpdate = useCallback(() => {
     onTranscriptUpdate(transcript);
   }, [onTranscriptUpdate, transcript]);
+
+  useEffect(() => {
+    if (listening) {
+      handleTranscriptUpdate();
+    } else {
+      resetTranscript();
+    }
+  }, [handleTranscriptUpdate, listening, resetTranscript]);
 
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -38,7 +55,7 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 
   return (
     <>
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
         <Button
           variant="contained"
           startIcon={<MicIcon />}
@@ -56,12 +73,11 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
           Stop Listening
         </Button>
       </Stack>
-      <Snackbar
-        open={!!error}
-        autoHideDuration={6000}
-        onClose={() => setError(null)}
-        message={error}
-      />
+      {error && (
+        <Box sx={{ mt: 2 }}>
+          <ErrorMessage message={error} />
+        </Box>
+      )}
     </>
   );
 };

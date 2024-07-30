@@ -1,6 +1,7 @@
 import React from "react";
-import { TextField, Typography, Box } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import SpeechToText from "./SpeechToText";
+import PageSubTitle from "../../../components/ui/PageSubTitle";
 
 interface DescriptionInputProps {
   value: string;
@@ -17,9 +18,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
 }) => {
   return (
     <Box sx={{ mb: 3, display: isSubmitted ? "none" : "block" }}>
-      <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "medium" }}>
-        Your Description:
-      </Typography>
+      <PageSubTitle subtitle="Your Description:" color="white" />
       <TextField
         fullWidth
         multiline
@@ -29,6 +28,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={isLoading}
+        sx={{ mt: 1 }}
       />
       <Box mt={2}>
         <SpeechToText onTranscriptUpdate={onChange} isDisabled={isLoading} />

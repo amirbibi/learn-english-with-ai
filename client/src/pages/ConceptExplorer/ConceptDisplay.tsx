@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Typography, IconButton, Tooltip, Skeleton } from "@mui/material";
+import { Box, IconButton, Tooltip, Skeleton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import PageSubTitle from "../../components/ui/PageSubTitle";
 
 interface ConceptDisplayProps {
   concept: string;
@@ -27,13 +28,7 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
       {isLoading ? (
         <Skeleton variant="text" width="80%" height={40} />
       ) : (
-        <Typography
-          variant="h6"
-          component="h2"
-          sx={{ color: "secondary.main" }}
-        >
-          Concept: {concept}
-        </Typography>
+        <PageSubTitle subtitle={`Concept: ${concept}`} />
       )}
       {!isSubmitted && (
         <Tooltip title="Get new concept">

@@ -27,7 +27,7 @@ const Login: React.FC = () => {
         style={{ width: "100%", maxWidth: "400px" }}
       >
         <Paper
-          elevation={3}
+          elevation={5}
           sx={{
             p: { xs: 3, sm: 4 },
             borderRadius: 2,

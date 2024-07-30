@@ -3,17 +3,18 @@ import { Box, Paper, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import { useConceptExplorer } from "../../hooks/useConceptExplorer";
 import ConceptDisplay from "./ConceptDisplay";
-import DescriptionInput from "./DescriptionInput";
+import DescriptionInput from "./DescriptionInput/DescriptionInput";
 import EvaluationDisplay from "./EvaluationDisplay";
 import QuoteDisplay from "./QuoteDisplay";
 import SubmitButton from "./SubmitButton";
 import ErrorMessage from "../../components/ui/ErrorMessage";
+import PageTitle from "../../components/ui/PageTitle";
 
 const ConceptExplorer: React.FC = () => {
   const { state, actions, error } = useConceptExplorer();
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Box sx={{ my: { xs: 2, sm: 4 } }}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -21,10 +22,11 @@ const ConceptExplorer: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <Paper
-            elevation={3}
+            elevation={5}
             sx={{ p: { xs: 2, sm: 3, md: 4 }, borderRadius: { xs: 2, sm: 4 } }}
           >
-            {!state.isSubmitted && <QuoteDisplay />}
+            <PageTitle title="Concept Explorer" />
+            <QuoteDisplay />
             <ConceptDisplay
               concept={state.concept}
               isSubmitted={state.isSubmitted}
@@ -48,11 +50,13 @@ const ConceptExplorer: React.FC = () => {
               }
             />
             {error && <ErrorMessage message={error} />}
-            <EvaluationDisplay
-              evaluation={state.evaluation}
-              goodDescription={state.goodDescription}
-              isSubmitted={state.isSubmitted}
-            />
+            {state.isSubmitted && (
+              <EvaluationDisplay
+                evaluation={state.evaluation}
+                goodDescription={state.goodDescription}
+                isSubmitted={state.isSubmitted}
+              />
+            )}
           </Paper>
         </motion.div>
       </Box>

@@ -24,7 +24,7 @@ const AuthError: React.FC = () => {
       }}
     >
       <Paper
-        elevation={3}
+        elevation={5}
         sx={{
           width: "100%",
           maxWidth: "400px",

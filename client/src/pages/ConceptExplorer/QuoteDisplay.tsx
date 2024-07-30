@@ -1,9 +1,24 @@
-import React from "react";
-import { Typography, Box, Skeleton } from "@mui/material";
+import React, { useEffect } from "react";
+import {
+  Typography,
+  Box,
+  Skeleton,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { useQuoteAPI } from "../../hooks/api/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
-  const { quote, isLoading, error } = useQuoteAPI();
+  const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      await fetchRandomQuote();
+    };
+    fetchQuote();
+  }, [fetchRandomQuote]);
 
   if (error) {
     return (
@@ -19,11 +34,12 @@ const QuoteDisplay: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        mb: 4,
+        mb: 2,
+        mt: 2,
       }}
     >
       {isLoading ? (
-        <Skeleton variant="text" width="80%" height={60} />
+        <Skeleton variant="text" height={60} />
       ) : quote ? (
         <>
           <Typography
@@ -34,20 +50,24 @@ const QuoteDisplay: React.FC = () => {
               mb: 1,
               "&::before": { content: '"\\201C"', marginRight: "0.2em" },
               "&::after": { content: '"\\201D"', marginLeft: "0.2em" },
+              fontSize: { xs: "0.65rem", sm: "1rem" },
             }}
           >
             {quote.text}
           </Typography>
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{
-              color: "text.secondary",
-              "&::before": { content: '"— "' },
-            }}
-          >
-            {quote.author}
-          </Typography>
+          {!isMobile && (
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{
+                color: "text.secondary",
+                "&::before": { content: '"— "' },
+                fontSize: "0.85rem",
+              }}
+            >
+              {quote.author}
+            </Typography>
+          )}
         </>
       ) : null}
     </Box>

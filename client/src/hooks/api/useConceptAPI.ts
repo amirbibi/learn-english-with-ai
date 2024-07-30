@@ -8,7 +8,6 @@ export const useConceptAPI = () => {
   const getRandomConcept = useCallback(async (): Promise<Concept> => {
     setError(null);
     try {
-      console.log("Fetching new concept...");
       const result: Concept = await api.getRandomConcept();
       return result;
     } catch (err) {
@@ -23,7 +22,6 @@ export const useConceptAPI = () => {
       concept: string,
       description: string
     ): Promise<EvaluationResponse> => {
-      console.log("Submitting description...");
       setError(null);
       try {
         const result: EvaluationResponse = await api.submitDescription(
