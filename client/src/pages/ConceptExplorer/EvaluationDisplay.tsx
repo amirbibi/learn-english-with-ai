@@ -24,7 +24,11 @@ const EvaluationDisplay: React.FC<EvaluationDisplayProps> = ({
             Evaluation:
           </Typography>
           <Box
-            sx={{ pl: 2, borderLeft: "4px solid", borderColor: "info.main" }}
+            sx={{
+              pl: 2,
+              borderLeft: "4px solid",
+              borderColor: "info.main",
+            }}
           >
             {formatSection(evaluation)}
           </Box>

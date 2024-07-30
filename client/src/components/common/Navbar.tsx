@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       position="static"
       color="transparent"
       elevation={0}
-      sx={{ maxHeight: "1.5rem" }}
+      sx={{ maxHeight: "1.5rem", mb: 2 }}
     >
       <Toolbar>
         <Box

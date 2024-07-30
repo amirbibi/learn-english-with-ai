@@ -1,5 +1,3 @@
-// src/utils/formatters.ts
-
 import React from "react";
 
 export const formatSection = (content: string): React.ReactNode[] => {
@@ -7,9 +5,9 @@ export const formatSection = (content: string): React.ReactNode[] => {
     if (line.startsWith("- ")) {
       return <li key={index}>{line.substring(2)}</li>;
     }
-    if (line.match(/^[📝👍🔨🚀💡✨💪🧠🌳😃🌟🔍🔼]/u) || line.startsWith("**")) {
+    if (line.match(/^[📝👍🔨🚀💡✨💪🧠🌳😃🌟🔍🔼]/u)) {
       return (
-        <h4 key={index} style={{ fontWeight: "bold" }}>
+        <h4 key={index} style={{ fontWeight: "600" }}>
           {line}
         </h4>
       );

@@ -26,7 +26,7 @@ const ConceptExplorer: React.FC = () => {
             sx={{ p: { xs: 2, sm: 3, md: 4 }, borderRadius: { xs: 2, sm: 4 } }}
           >
             <PageTitle title="Concept Explorer" />
-            <QuoteDisplay />
+            {!state.isSubmitted && <QuoteDisplay />}
             <ConceptDisplay
               concept={state.concept}
               isSubmitted={state.isSubmitted}

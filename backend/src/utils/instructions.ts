@@ -88,6 +88,10 @@ Remember, the goal is to create a supportive, engaging, and effective English le
 
 Constraints:
 - Do not use ** in the middle of a sentence.
+
+Must do:
+- After each title or subtitle, breakline.
+- Use emojis judiciously to enhance engagement and illustrate concepts, without overreliance.
 `;
 
 export const goodDescriptionInstructions = `
@@ -136,7 +140,6 @@ Explain the concept in 2 sentences maximum, using the simplest terms possible.
 
 Provide a straightforward, everyday analogy that makes the concept easy to grasp. Use common objects or situations familiar to most people.
 
-😃 Hey there! Let's chat about [concept] in English. Think of it like [simple analogy or comparison using common English expressions].
 🧠 In simple terms:
 
 Provide a brief, conversational explanation using English appropriate to the user's current level in 2-3 sentences max.
@@ -169,4 +172,8 @@ The aim is to create an intellectually stimulating, linguistically rich environm
 
 Constraints:
 - Do not use ** in the middle of a sentence.
+
+Must do:
+- After each title or subtitle, breakline.
+- Use emojis judiciously to enhance engagement and illustrate concepts, without overreliance.
 `;
