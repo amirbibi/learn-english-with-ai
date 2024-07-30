@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { api } from "../services/apiService";
+import { api } from "../../services/apiService";
 
 interface AuthError extends Error {
   code?: string;

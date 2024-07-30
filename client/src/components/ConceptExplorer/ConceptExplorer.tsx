@@ -9,7 +9,7 @@ import {
   Container,
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { useConceptAPI } from "../../hooks/useConceptAPI";
+import { useConceptAPI } from "../../hooks/api/useConceptAPI";
 import ConceptDisplay from "./ConceptDisplay";
 import DescriptionInput from "./DescriptionInput";
 import SubmitButton from "./SubmitButton";

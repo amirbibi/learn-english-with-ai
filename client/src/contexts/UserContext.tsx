@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { useAuthAPI } from "../hooks/useAuthAPI";
+import { useAuthAPI } from "../hooks/api/useAuthAPI";
 
 interface User {
   email: string;

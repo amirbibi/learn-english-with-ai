@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { api } from "../services/apiService";
-import { Quote } from "../types/quote";
+import { api } from "../../services/apiService";
+import { Quote } from "../../types/quote";
 
 export const useQuoteAPI = () => {
   const [quote, setQuote] = useState<Quote | null>(null);

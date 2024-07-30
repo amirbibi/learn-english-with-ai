@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useQuoteAPI } from "../../hooks/useQuoteAPI";
+import { useQuoteAPI } from "../../hooks/api/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
   const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
@@ -24,7 +24,7 @@ const QuoteDisplay: React.FC = () => {
 
   if (error) {
     return (
-    <Typography color="error" align="center" sx={{ mb: 3 }}>
+      <Typography color="error" align="center" sx={{ mb: 3 }}>
         Failed to load quote. Please try again later.
       </Typography>
     );
