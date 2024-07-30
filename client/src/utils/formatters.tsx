@@ -1,30 +1,19 @@
-import { Typography } from "@mui/material";
+// src/utils/formatters.ts
 
-export const formatExplanation = (text: string) => {
-  // Split the text into paragraphs
-  const paragraphs = text.split("\n\n");
+import React from "react";
 
-  // Map over each paragraph and format it accordingly
-  return paragraphs.map((paragraph, index) => {
-    if (paragraph.startsWith("📚")) {
+export const formatSection = (content: string): React.ReactNode[] => {
+  return content.split("\n").map((line, index) => {
+    if (line.startsWith("- ")) {
+      return <li key={index}>{line.substring(2)}</li>;
+    }
+    if (line.match(/^[📝👍🔨🚀💡✨💪🧠🌳😃🌟🔍🔼]/u) || line.startsWith("**")) {
       return (
-        <Typography key={index} variant="h6" gutterBottom>
-          {paragraph}
-        </Typography>
-      );
-    } else {
-      const formattedParagraph = paragraph
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        // .replace(/🧠|🌟|🔍|💡|🔼|❓/g, "<br>$&")
-        .replace(/\n/g, "<br>");
-
-      return (
-        <Typography
-          key={index}
-          dangerouslySetInnerHTML={{ __html: formattedParagraph }}
-          paragraph
-        />
+        <h4 key={index} style={{ fontWeight: "bold" }}>
+          {line}
+        </h4>
       );
     }
+    return <p key={index}>{line}</p>;
   });
 };

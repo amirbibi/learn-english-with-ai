@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Divider, Fade } from "@mui/material";
-import { formatExplanation } from "../../utils/formatters";
+import { formatSection } from "../../utils/formatters";
 
 interface EvaluationDisplayProps {
   evaluation: string;
@@ -17,24 +17,30 @@ const EvaluationDisplay: React.FC<EvaluationDisplayProps> = ({
     <Fade in={isSubmitted} timeout={1000}>
       <Box>
         <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" sx={{ mb: 1, color: "info.main" }}>
+          <Typography
+            variant="h6"
+            sx={{ mb: 1, color: "info.main", fontWeight: "bold" }}
+          >
             Evaluation:
           </Typography>
           <Box
             sx={{ pl: 2, borderLeft: "4px solid", borderColor: "info.main" }}
           >
-            {formatExplanation(evaluation)}
+            {formatSection(evaluation)}
           </Box>
         </Box>
         <Divider sx={{ my: 3 }} />
         <Box>
-          <Typography variant="h6" sx={{ mb: 1, color: "success.main" }}>
+          <Typography
+            variant="h6"
+            sx={{ mb: 1, color: "success.main", fontWeight: "bold" }}
+          >
             Model Description:
           </Typography>
           <Box
             sx={{ pl: 2, borderLeft: "4px solid", borderColor: "success.main" }}
           >
-            {formatExplanation(goodDescription)}
+            {formatSection(goodDescription)}
           </Box>
         </Box>
       </Box>

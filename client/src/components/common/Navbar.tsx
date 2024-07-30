@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const muiTheme = useMuiTheme();
   const { mode, toggleMode } = useThemeContext();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleLogout = () => {
