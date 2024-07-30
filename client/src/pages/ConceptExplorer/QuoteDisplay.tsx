@@ -1,26 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import {
-  Typography,
-  Box,
-  Skeleton,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import React from "react";
+import { Typography, Box, Skeleton } from "@mui/material";
 import { useQuoteAPI } from "../../hooks/api/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
-  const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const quoteFetchedRef = useRef(false);
-
-  useEffect(() => {
-    if (!quoteFetchedRef.current) {
-      fetchRandomQuote();
-      quoteFetchedRef.current = true;
-    }
-  }, [fetchRandomQuote]);
+  const { quote, isLoading, error } = useQuoteAPI();
 
   if (error) {
     return (
@@ -37,7 +20,6 @@ const QuoteDisplay: React.FC = () => {
         flexDirection: "column",
         alignItems: "center",
         mb: 4,
-        px: isMobile ? 1 : isTablet ? 2 : 3,
       }}
     >
       {isLoading ? (
@@ -49,7 +31,6 @@ const QuoteDisplay: React.FC = () => {
             align="center"
             sx={{
               color: "text.secondary",
-              fontSize: isMobile ? "0.9rem" : isTablet ? "1rem" : "1.1rem",
               mb: 1,
               "&::before": { content: '"\\201C"', marginRight: "0.2em" },
               "&::after": { content: '"\\201D"', marginLeft: "0.2em" },
@@ -62,7 +43,6 @@ const QuoteDisplay: React.FC = () => {
             align="center"
             sx={{
               color: "text.secondary",
-              fontSize: isMobile ? "0.8rem" : "0.9rem",
               "&::before": { content: '"— "' },
             }}
           >

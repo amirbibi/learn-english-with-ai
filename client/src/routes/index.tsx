@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "../components/common/PrivateRoute";
 import PublicRoute from "../components/common/PublicRoute";
-import ConceptExplorer from "../components/ConceptExplorer/ConceptExplorer";
+import ConceptExplorer from "../pages/ConceptExplorer/ConceptExplorer";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Login = lazy(() => import("../pages/Login/Login"));

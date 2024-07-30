@@ -22,8 +22,6 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
         alignItems: "center",
         justifyContent: "space-between",
         mb: 3,
-        flexWrap: "wrap",
-        gap: 2,
       }}
     >
       {isLoading ? (
@@ -32,30 +30,16 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
         <Typography
           variant="h6"
           component="h2"
-          sx={{
-            color: "secondary.main",
-            wordBreak: "break-word",
-            flexGrow: 1,
-          }}
+          sx={{ color: "secondary.main" }}
         >
           Concept: {concept}
         </Typography>
       )}
       {!isSubmitted && (
         <Tooltip title="Get new concept">
-          <span>
-            <IconButton
-              onClick={onRefresh}
-              size="small"
-              aria-label="get new concept"
-              sx={{
-                color: "secondary.main",
-              }}
-              disabled={isLoading}
-            >
-              <RefreshIcon />
-            </IconButton>
-          </span>
+          <IconButton onClick={onRefresh} disabled={isLoading}>
+            <RefreshIcon />
+          </IconButton>
         </Tooltip>
       )}
     </Box>
