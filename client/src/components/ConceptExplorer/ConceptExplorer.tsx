@@ -14,7 +14,7 @@ import ConceptDisplay from "./ConceptDisplay";
 import DescriptionInput from "./DescriptionInput";
 import SubmitButton from "./SubmitButton";
 import EvaluationDisplay from "./EvaluationDisplay";
-import ErrorMessage from "../common/ErrorMessage";
+import ErrorMessage from "../ui/ErrorMessage";
 import QuoteDisplay from "./QuoteDisplay";
 
 const ConceptExplorer: React.FC = () => {

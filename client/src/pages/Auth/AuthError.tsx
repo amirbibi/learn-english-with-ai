@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Box, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import ErrorMessage from "../common/ErrorMessage";
+import ErrorMessage from "../../components/ui/ErrorMessage";
 
 const DEFAULT_ERROR_MESSAGE = "An error occurred during authentication.";
 

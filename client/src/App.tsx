@@ -4,7 +4,7 @@ import { UserProvider } from "./contexts/UserContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { useUserContext } from "./hooks/useUserContext";
 import Navbar from "./components/common/Navbar";
-import LoadingSpinner from "./components/common/LoadingSpinner";
+import LoadingSpinner from "./components/ui/LoadingSpinner";
 import { AppRoutes } from "./routes";
 
 const globalStyles = {
