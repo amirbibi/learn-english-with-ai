@@ -44,14 +44,6 @@ export class ConceptController {
       res.json(result);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
-
-      const placeholderResult = {
-        evaluation:
-          "Great try! Your description touches on some key points, but there's room to make it even better. Let's work on it together!",
-        goodDescription: `${concept} is an interesting topic! It's about [brief explanation]. Let's explore it more!`,
-        isPlaceholder: true,
-      };
-      res.json(placeholderResult);
     }
   };
 }

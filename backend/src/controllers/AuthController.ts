@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import config from "../config/index";
 import { AuthRepository } from "../repositories/AuthRepository";
 import { AuthRequest } from "../middlewares/validateJwtToken";
+import { JwtService } from "../services/JwtService";
+import { GoogleAuthService } from "../services/GoogleAuthService";
 
 export class AuthController {
-  constructor(private authRepository: AuthRepository) {}
-
-  // Create a JWT token
-  private createToken(userId: string): string {
-    return jwt.sign({ userId }, config.JWT_SECRET, { expiresIn: "1h" });
-  }
+  constructor(
+    private authRepository: AuthRepository,
+    private jwtService: JwtService,
+    private googleAuthService: GoogleAuthService
+  ) {}
 
   // Register a new user
   register = async (req: Request, res: Response): Promise<void> => {
@@ -37,7 +36,7 @@ export class AuthController {
         res.status(400).json({ message: "Invalid credentials" });
         return;
       }
-      const token = this.createToken(user._id);
+      const token = this.jwtService.createToken(user._id);
       res.json({ token });
     } catch (error) {
       res.status(500).json({ message: "Error logging in", error });
@@ -72,9 +71,8 @@ export class AuthController {
     }
 
     try {
-      const { email, googleId } = await this.authRepository.verifyGoogleToken(
-        code
-      );
+      const { email, googleId } =
+        await this.googleAuthService.verifyGoogleToken(code);
       let user = await this.authRepository.findUserByEmail(email);
 
       if (!user) {
@@ -87,7 +85,7 @@ export class AuthController {
         user = await this.authRepository.updateUserGoogleId(user, googleId);
       }
 
-      const token = this.createToken(user._id);
+      const token = this.jwtService.createToken(user._id);
       res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {
       console.error("Google callback error:", error);
