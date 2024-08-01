@@ -44,7 +44,7 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
     <Paper
       elevation={3}
       sx={{
-        p: 2,
+        p: 3,
         mb: 2,
         display: "flex",
         position: "relative",

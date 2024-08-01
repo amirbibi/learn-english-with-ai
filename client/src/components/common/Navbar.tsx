@@ -12,7 +12,6 @@ import {
   useTheme as useMuiTheme,
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import LogoDevIcon from "@mui/icons-material/LogoDev";
 import MenuIcon from "@mui/icons-material/Menu";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -77,7 +76,14 @@ const Navbar: React.FC = () => {
             },
           }}
         >
-          <LogoDevIcon sx={{ mr: 1 }} />
+          <Box
+            component="img"
+            sx={{
+              width: 30,
+              mr: 2,
+            }}
+            src="/logo.svg"
+          />
           <Typography
             variant="h6"
             component="div"

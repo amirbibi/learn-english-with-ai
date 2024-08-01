@@ -42,7 +42,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         )
       }
       sx={{
-        mb: 2,
         backgroundColor: (theme) =>
           isSubmitted
             ? theme.palette.secondary.main

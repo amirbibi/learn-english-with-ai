@@ -23,11 +23,17 @@ const ConceptExplorer: React.FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg" disableGutters sx={{ my: { xs: 2, sm: 4 } }}>
-      <Grid container spacing={{ xs: 2, sm: 3 }}>
+    <Container maxWidth="lg" disableGutters sx={{ my: { xs: 2 } }}>
+      <Grid container spacing={{ sm: 3 }}>
         {!state.isSubmitted && (
           <Grid item xs={12} md={4} order={{ xs: 1, md: 2 }}>
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: { xs: 2, sm: 3 },
+              }}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -44,6 +50,22 @@ const ConceptExplorer: React.FC = () => {
                     isLoading={state.isLoading}
                     onSelectConcept={actions.handleNewConcept}
                   />
+                </Paper>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Paper
+                  elevation={5}
+                  sx={{
+                    p: { xs: 2, sm: 3, md: 4 },
+                    borderRadius: { xs: 2, sm: 4 },
+                    display: { xs: "none", md: "block" },
+                  }}
+                >
+                  <QuoteDisplay />
                 </Paper>
               </motion.div>
             </Box>
@@ -69,7 +91,6 @@ const ConceptExplorer: React.FC = () => {
                 }}
               >
                 <PageTitle title="Concept Explorer" />
-                {!state.isSubmitted && <QuoteDisplay />}
                 <ConceptDisplay
                   concept={state.concept}
                   category={state.category}
