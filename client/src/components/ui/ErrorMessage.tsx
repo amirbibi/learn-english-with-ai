@@ -12,11 +12,8 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, title = "" }) => (
     variant="outlined"
     icon={<ErrorOutlineIcon />}
     sx={{
-      mb: 2,
+      my: 2,
       width: "100%",
-      "& .MuiAlert-message": {
-        width: "100%",
-      },
     }}
   >
     <AlertTitle>{title}</AlertTitle>

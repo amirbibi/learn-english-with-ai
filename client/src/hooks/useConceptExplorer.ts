@@ -68,6 +68,14 @@ export const useConceptExplorer = () => {
           isLoading: true,
         });
       },
+
+      handleTryAgain: () => {
+        updateState({
+          isSubmitted: false,
+          evaluation: "",
+          goodDescription: "",
+        });
+      },
     }),
     [
       updateState,

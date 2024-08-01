@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo } from "react";
+import React, { createContext, useState, useMemo } from "react";
 import {
   ThemeProvider as MUIThemeProvider,
   createTheme,
@@ -40,20 +40,17 @@ const createAppTheme = (mode: PaletteMode): Theme =>
               default: "#FFFFFF",
               paper: "#F5F5F5",
             },
-            info: { main: "#2986cc" },
-            success: { main: "#6aa84f" },
           }
-        : // mode === "dark"
-          {
+        : {
             primary: { main: "#FFFFFF" },
             secondary: { main: "#03DAC6" },
             background: {
               default: "#121212",
               paper: "#1E1E1E",
             },
-            info: { main: "#64B5F6" },
-            success: { main: "#81C784" },
           }),
+      info: { main: "#64B5F6" },
+      success: { main: "#81C784" },
     },
   });
 

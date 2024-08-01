@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, Paper, Container, Grid } from "@mui/material";
+import { Box, Paper, Container, Grid, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import { useConceptExplorer } from "../../hooks/useConceptExplorer";
 import ConceptDisplay from "./ConceptDisplay/ConceptDisplay";
@@ -9,6 +9,7 @@ import QuoteDisplay from "./QuoteDisplay";
 import SubmitButton from "./SubmitButton";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import ConceptCategories from "./ConceptCategories/ConceptCategories";
+import TryAgainButton from "./TryAgainButton";
 
 const DEFAULT_CATEGORY = "General";
 const DEFAULT_DIFFICULTY = "easy";
@@ -103,22 +104,33 @@ const ConceptExplorer: React.FC = () => {
                   isLoading={state.isLoading}
                   isSubmitted={state.isSubmitted}
                 />
-                <SubmitButton
-                  isSubmitted={state.isSubmitted}
-                  isLoading={state.isLoading}
-                  disabled={!state.isSubmitted && !state.userDescription.trim()}
-                  category={state.category}
-                  difficulty={state.difficulty}
-                  onClick={
-                    state.isSubmitted
-                      ? () =>
-                          actions.handleNewConcept(
-                            state.category,
-                            state.difficulty
-                          )
-                      : actions.handleSubmit
-                  }
-                />
+                <Stack direction="row" gap={2}>
+                  <SubmitButton
+                    isSubmitted={state.isSubmitted}
+                    isLoading={state.isLoading}
+                    disabled={
+                      !state.isSubmitted && !state.userDescription.trim()
+                    }
+                    category={state.category}
+                    difficulty={state.difficulty}
+                    onClick={
+                      state.isSubmitted
+                        ? () =>
+                            actions.handleNewConcept(
+                              state.category,
+                              state.difficulty
+                            )
+                        : actions.handleSubmit
+                    }
+                  />
+                  {state.isSubmitted && (
+                    <TryAgainButton
+                      isSubmitted={state.isSubmitted}
+                      isLoading={state.isLoading}
+                      onClick={actions.handleTryAgain}
+                    />
+                  )}
+                </Stack>
                 {error && <ErrorMessage message={error} />}
                 {state.isSubmitted && (
                   <EvaluationDisplay
