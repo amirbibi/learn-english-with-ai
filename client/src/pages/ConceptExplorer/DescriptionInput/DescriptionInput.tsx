@@ -30,7 +30,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         disabled={isLoading}
         sx={{ mt: 1 }}
       />
-      <Box mt={2}>
+      <Box mt={3}>
         <SpeechToText
           onTranscriptUpdate={onChange}
           isDisabled={isLoading}

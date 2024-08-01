@@ -30,7 +30,7 @@ const ConceptExplorer: React.FC = () => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: { xs: 2, sm: 3 },
+                gap: { xs: 2, sm: 0, md: 2 },
               }}
             >
               <motion.div
@@ -59,7 +59,7 @@ const ConceptExplorer: React.FC = () => {
                 <Paper
                   elevation={5}
                   sx={{
-                    p: { xs: 2, sm: 3, md: 4 },
+                    p: { xs: 2, sm: 3 },
                     borderRadius: { xs: 2, sm: 4 },
                     display: { xs: "none", md: "block" },
                   }}

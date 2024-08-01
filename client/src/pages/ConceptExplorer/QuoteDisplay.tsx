@@ -33,9 +33,7 @@ const QuoteDisplay: React.FC = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        mb: 2,
-        mt: 2,
+        margin: 2,
       }}
     >
       {isLoading ? (
