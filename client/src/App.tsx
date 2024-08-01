@@ -30,9 +30,7 @@ const AppContent: React.FC = () => {
         sx={{
           flexGrow: 1,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <AppRoutes />

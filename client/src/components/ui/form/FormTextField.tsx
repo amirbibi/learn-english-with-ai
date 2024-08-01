@@ -1,11 +1,15 @@
 import { TextField, TextFieldProps } from "@mui/material";
 
-interface FormFieldProps extends Omit<TextFieldProps, "name"> {
+interface FormTextFieldProps extends Omit<TextFieldProps, "name"> {
   name: string;
   label?: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ name, label, ...props }) => {
+const FormTextField: React.FC<FormTextFieldProps> = ({
+  name,
+  label,
+  ...props
+}) => {
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
@@ -21,4 +25,4 @@ const FormField: React.FC<FormFieldProps> = ({ name, label, ...props }) => {
   );
 };
 
-export default FormField;
+export default FormTextField;

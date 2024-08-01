@@ -2,19 +2,23 @@ import { useState } from "react";
 import { IconButton, InputAdornment, TextFieldProps } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import FormField from "./FormField";
+import FormTextField from "./FormTextField";
 
-interface FormFieldProps extends Omit<TextFieldProps, "name"> {
+interface FormTextFieldProps extends Omit<TextFieldProps, "name"> {
   name: string;
   label?: string;
 }
 
-const PasswordField: React.FC<FormFieldProps> = ({ name, label, ...props }) => {
+const PasswordField: React.FC<FormTextFieldProps> = ({
+  name,
+  label,
+  ...props
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword((show) => !show);
 
   return (
-    <FormField
+    <FormTextField
       {...props}
       name={name}
       label={label}

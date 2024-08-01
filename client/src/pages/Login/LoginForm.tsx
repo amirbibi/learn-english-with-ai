@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Link, Typography } from "@mui/material";
-import FormField from "../../components/ui/form/FormField";
+import FormTextField from "../../components/ui/form/FormTextField";
 import PasswordField from "../../components/ui/form/PasswordField";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import { Link as RouterLink } from "react-router-dom";
@@ -22,7 +22,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 }) => {
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate>
-      <FormField
+      <FormTextField
         autoFocus
         value={formData.email}
         onChange={handleChange}
