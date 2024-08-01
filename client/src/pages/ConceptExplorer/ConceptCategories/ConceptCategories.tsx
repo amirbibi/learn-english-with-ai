@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   FormControl,
@@ -12,9 +12,9 @@ import {
 import PageTitle from "../../../components/ui/PageTitle";
 
 const DIFFICULTIES = [
-  { level: "easy", color: "#00b8a3" },
-  { level: "medium", color: "#ffc01e" },
-  { level: "hard", color: "#ff375f" },
+  { name: "easy", color: "#00b8a3" },
+  { name: "medium", color: "#e6a417" },
+  { name: "hard", color: "#ff375f" },
 ];
 
 const DEFAULT_CATEGORIES = ["General", "Computer Science"];
@@ -32,27 +32,23 @@ const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
     DEFAULT_CATEGORIES[0]
   );
   const [selectedDifficulty, setSelectedDifficulty] = useState(
-    DIFFICULTIES[0].level
+    DIFFICULTIES[0].name
   );
 
   // useEffect(() => {
-  //   if (onSelectConcept) {
-  //     onSelectConcept(selectedCategory, selectedDifficulty);
-  //   }
-  // }, [onSelectConcept, selectedCategory, selectedDifficulty]);
+  //   onSelectConcept(selectedCategory, selectedDifficulty);
+  // }, [onSelectConcept]);
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setSelectedCategory(event.target.value);
-    if (onSelectConcept) {
-      onSelectConcept(event.target.value, selectedDifficulty);
-    }
+    onSelectConcept(event.target.value, selectedDifficulty);
   };
 
   const handleDifficultyChange = (difficulty: string) => {
+    if (selectedDifficulty === difficulty) return;
+
     setSelectedDifficulty(difficulty);
-    if (onSelectConcept) {
-      onSelectConcept(selectedCategory, difficulty);
-    }
+    onSelectConcept(selectedCategory, difficulty);
   };
 
   return (
@@ -76,10 +72,10 @@ const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
       </FormControl>
       <Box mt={2}>
         <ButtonGroup fullWidth variant="contained" disabled={isLoading}>
-          {DIFFICULTIES.map(({ level, color }) => (
+          {DIFFICULTIES.map(({ name, color }) => (
             <Button
-              key={level}
-              onClick={() => handleDifficultyChange(level)}
+              key={name}
+              onClick={() => handleDifficultyChange(name)}
               sx={{
                 backgroundColor: color,
                 color: "white",
@@ -88,12 +84,9 @@ const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
                   backgroundColor: color,
                   opacity: 0.8,
                 },
-                ...(selectedDifficulty === level && {
-                  boxShadow: `0 0 0 2px ${color}`,
-                }),
               }}
             >
-              {level.charAt(0).toUpperCase() + level.slice(1)}
+              {name}
             </Button>
           ))}
         </ButtonGroup>

@@ -1,9 +1,12 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useConceptAPI } from "./api/useConceptAPI";
 import { EvaluationResponse } from "../types/api";
+import { Concept } from "../types/concept";
 
 interface ConceptExplorerState {
   concept: string;
+  category: string;
+  difficulty: string;
   userDescription: string;
   evaluation: string;
   goodDescription: string;
@@ -14,6 +17,8 @@ interface ConceptExplorerState {
 export const useConceptExplorer = () => {
   const [state, setState] = useState<ConceptExplorerState>({
     concept: "",
+    category: "",
+    difficulty: "",
     userDescription: "",
     evaluation: "",
     goodDescription: "",
@@ -27,44 +32,51 @@ export const useConceptExplorer = () => {
     setState((prev) => ({ ...prev, ...updates }));
   }, []);
 
-  const actions = {
-    handleDescriptionChange: useCallback(
-      (value: string) => {
+  const actions = useMemo(
+    () => ({
+      handleDescriptionChange: (value: string) => {
         updateState({ userDescription: value });
       },
-      [updateState]
-    ),
 
-    handleSubmit: useCallback(async () => {
-      updateState({ isSubmitted: true, isLoading: true });
-      const result: EvaluationResponse = await submitDescription(
-        state.concept,
-        state.userDescription
-      );
-      updateState({
-        evaluation: result.evaluation,
-        goodDescription: result.goodDescription,
-        isLoading: false,
-      });
-    }, [updateState, submitDescription, state.concept, state.userDescription]),
+      handleSubmit: async () => {
+        updateState({ isSubmitted: true, isLoading: true });
+        const result: EvaluationResponse = await submitDescription(
+          state.concept,
+          state.userDescription
+        );
+        updateState({
+          userDescription: "",
+          evaluation: result.evaluation,
+          goodDescription: result.goodDescription,
+          isLoading: false,
+        });
+      },
 
-    handleNewConcept: useCallback(async () => {
-      updateState({
-        userDescription: "",
-        isSubmitted: false,
-        evaluation: "",
-        goodDescription: "",
-        isLoading: true,
-      });
+      handleNewConcept: async (category: string, difficulty: string) => {
+        const newConcept: Concept = await getRandomConcept(
+          category,
+          difficulty
+        );
 
-      updateState({ concept: (await getRandomConcept()).name });
-    }, [updateState, getRandomConcept]),
-  };
-
-  useEffect(() => {
-    actions.handleNewConcept();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        updateState({
+          concept: newConcept.name,
+          difficulty: newConcept.difficulty,
+          category: newConcept.category,
+          isSubmitted: false,
+          evaluation: "",
+          goodDescription: "",
+          isLoading: true,
+        });
+      },
+    }),
+    [
+      updateState,
+      submitDescription,
+      state.concept,
+      state.userDescription,
+      getRandomConcept,
+    ]
+  );
 
   useEffect(() => {
     if (state.concept) {

@@ -18,7 +18,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
 }) => {
   return (
     <Box sx={{ mb: 3, display: isSubmitted ? "none" : "block" }}>
-      <PageSubTitle subtitle="Your Description:" color="white" />
+      <PageSubTitle subtitle="Your Description:" color="primary.main" />
       <TextField
         fullWidth
         multiline
@@ -31,7 +31,11 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         sx={{ mt: 1 }}
       />
       <Box mt={2}>
-        <SpeechToText onTranscriptUpdate={onChange} isDisabled={isLoading} />
+        <SpeechToText
+          onTranscriptUpdate={onChange}
+          isDisabled={isLoading}
+          isSubmitted={isSubmitted}
+        />
       </Box>
     </Box>
   );

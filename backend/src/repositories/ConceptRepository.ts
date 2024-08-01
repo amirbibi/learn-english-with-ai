@@ -7,44 +7,33 @@ interface ConceptDocument extends Concept, Document {}
 export class ConceptRepository {
   private lastFetchedConceptName: string | null = null;
 
-  async getRandomConcept(): Promise<Concept> {
-    const count = await ConceptModel.countDocuments();
-
-    if (count === 0) {
-      throw new Error("No concepts available");
-    }
-
-    return this.getRandomConceptDifferentFromLast(count);
-  }
-
-  private async getRandomConceptDifferentFromLast(
-    count: number
+  // $sample (better then $rand for small collections)
+  async getRandomConcept(
+    category: string,
+    difficulty: string
   ): Promise<Concept> {
-    let randomConcept: ConceptDocument | null = null;
+    const filter = { category, difficulty };
 
-    while (!randomConcept) {
-      const random = Math.floor(Math.random() * count);
-      randomConcept = await this.findRandomConcept(random);
+    const randomConcepts = await ConceptModel.aggregate([
+      { $match: filter },
+      { $sample: { size: 2 } }, // Fetch 2 for backup if the first one is the same as the last
+    ]);
 
-      // If we found a concept but it's the same as the last one
-      // set randomConcept back to null to try again
-      if (randomConcept && randomConcept.name === this.lastFetchedConceptName) {
-        randomConcept = null;
-      }
+    if (randomConcepts.length === 0) {
+      throw new Error(
+        `No concepts available for category: ${category} and difficulty: ${difficulty}`
+      );
     }
 
-    if (!randomConcept) {
-      throw new Error("Failed to retrieve a different random concept");
+    let selectedConcept = randomConcepts[0];
+    if (
+      selectedConcept.name === this.lastFetchedConceptName &&
+      randomConcepts.length > 1
+    ) {
+      selectedConcept = randomConcepts[1];
     }
 
-    this.lastFetchedConceptName = randomConcept.name;
-
-    return randomConcept;
-  }
-
-  private async findRandomConcept(
-    skip: number
-  ): Promise<ConceptDocument | null> {
-    return ConceptModel.findOne().skip(skip);
+    this.lastFetchedConceptName = selectedConcept.name;
+    return selectedConcept;
   }
 }

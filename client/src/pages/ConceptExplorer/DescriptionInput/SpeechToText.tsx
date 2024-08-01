@@ -11,11 +11,13 @@ import ErrorMessage from "../../../components/ui/ErrorMessage";
 interface SpeechToTextProps {
   onTranscriptUpdate: (transcript: string) => void;
   isDisabled: boolean;
+  isSubmitted: boolean;
 }
 
 const SpeechToText: React.FC<SpeechToTextProps> = ({
   onTranscriptUpdate,
   isDisabled,
+  isSubmitted,
 }) => {
   const [error, setError] = useState<string | null>(null);
   const {
@@ -48,6 +50,12 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
       resetTranscript();
     }
   }, [handleTranscriptUpdate, listening, resetTranscript]);
+
+  useEffect(() => {
+    if (isSubmitted) {
+      handleStopListening();
+    }
+  }, [isSubmitted, handleStopListening, resetTranscript]);
 
   if (!browserSupportsSpeechRecognition) {
     return null;

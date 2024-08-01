@@ -3,9 +3,9 @@ import {
   LoginResponse,
   RegisterResponse,
   ValidateTokenResponse,
-  Concept,
   EvaluationResponse,
 } from "../types/api";
+import { Concept } from "../types/concept";
 import { Quote } from "../types/quote";
 
 class ApiService {
@@ -44,14 +44,26 @@ class ApiService {
   }
 
   async validateToken(): Promise<ValidateTokenResponse> {
-    const response = await this.api.get<ValidateTokenResponse>(
-      "/auth/validate-token"
-    );
-    return response.data;
+    try {
+      const response = await this.api.get<ValidateTokenResponse>(
+        "/auth/validate-token"
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to validate token: ${error}`);
+    }
   }
 
-  async getRandomConcept(): Promise<Concept> {
-    const response = await this.api.get<Concept>("/concept");
+  async getRandomConcept(
+    category: string,
+    difficulty: string
+  ): Promise<Concept> {
+    const response = await this.api.get<Concept>("/concept", {
+      params: {
+        category: category,
+        difficulty: difficulty,
+      },
+    });
     return response.data;
   }
 

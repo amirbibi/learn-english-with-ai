@@ -7,7 +7,9 @@ interface SubmitButtonProps {
   isSubmitted: boolean;
   isLoading: boolean;
   disabled: boolean;
-  onClick: () => void;
+  category: string;
+  difficulty: string;
+  onClick: (category?: string, difficulty?: string) => void;
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -15,11 +17,20 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   isLoading,
   disabled,
   onClick,
+  category,
+  difficulty,
 }) => {
+  const handleClick = () => {
+    if (isSubmitted) {
+      onClick(category, difficulty);
+    } else {
+      onClick();
+    }
+  };
   return (
     <Button
       variant="contained"
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled || isLoading}
       startIcon={
         isLoading ? (

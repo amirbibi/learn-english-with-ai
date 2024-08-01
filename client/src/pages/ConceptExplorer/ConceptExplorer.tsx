@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Paper, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { useConceptExplorer } from "../../hooks/useConceptExplorer";
-import ConceptDisplay from "./ConceptDisplay";
+import ConceptDisplay from "./ConceptDisplay/ConceptDisplay";
 import DescriptionInput from "./DescriptionInput/DescriptionInput";
 import EvaluationDisplay from "./EvaluationDisplay";
 import QuoteDisplay from "./QuoteDisplay";
@@ -11,32 +11,50 @@ import ErrorMessage from "../../components/ui/ErrorMessage";
 import PageTitle from "../../components/ui/PageTitle";
 import ConceptCategories from "./ConceptCategories/ConceptCategories";
 
+const DEFAULT_CATEGORY = "General";
+const DEFAULT_DIFFICULTY = "easy";
+
 const ConceptExplorer: React.FC = () => {
   const { state, actions, error } = useConceptExplorer();
+
+  useEffect(() => {
+    actions.handleNewConcept(DEFAULT_CATEGORY, DEFAULT_DIFFICULTY);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container maxWidth="lg" disableGutters sx={{ my: { xs: 2, sm: 4 } }}>
       <Grid container spacing={{ xs: 2, sm: 3 }}>
-        <Grid item xs={12} md={4} order={{ xs: 1, md: 2 }}>
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Paper
-                elevation={5}
-                sx={{
-                  p: { xs: 2, sm: 3, md: 4 },
-                  borderRadius: { xs: 2, sm: 4 },
-                }}
+        {!state.isSubmitted && (
+          <Grid item xs={12} md={4} order={{ xs: 1, md: 2 }}>
+            <Box>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                <ConceptCategories isLoading={state.isLoading} />
-              </Paper>
-            </motion.div>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={8} order={{ xs: 2, md: 1 }}>
+                <Paper
+                  elevation={5}
+                  sx={{
+                    p: { xs: 2, sm: 3, md: 4 },
+                    borderRadius: { xs: 2, sm: 4 },
+                  }}
+                >
+                  <ConceptCategories
+                    isLoading={state.isLoading}
+                    onSelectConcept={actions.handleNewConcept}
+                  />
+                </Paper>
+              </motion.div>
+            </Box>
+          </Grid>
+        )}
+        <Grid
+          item
+          xs={12}
+          md={state.isSubmitted ? 12 : 8}
+          order={{ xs: 2, md: 1 }}
+        >
           <Box>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -54,6 +72,8 @@ const ConceptExplorer: React.FC = () => {
                 {!state.isSubmitted && <QuoteDisplay />}
                 <ConceptDisplay
                   concept={state.concept}
+                  category={state.category}
+                  difficulty={state.difficulty}
                   isSubmitted={state.isSubmitted}
                   isLoading={state.isLoading}
                   onRefresh={actions.handleNewConcept}
@@ -68,9 +88,15 @@ const ConceptExplorer: React.FC = () => {
                   isSubmitted={state.isSubmitted}
                   isLoading={state.isLoading}
                   disabled={!state.isSubmitted && !state.userDescription.trim()}
+                  category={state.category}
+                  difficulty={state.difficulty}
                   onClick={
                     state.isSubmitted
-                      ? actions.handleNewConcept
+                      ? () =>
+                          actions.handleNewConcept(
+                            state.category,
+                            state.difficulty
+                          )
                       : actions.handleSubmit
                   }
                 />
