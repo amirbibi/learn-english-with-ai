@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   Typography,
   Box,
@@ -33,7 +33,6 @@ const QuoteDisplay: React.FC = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        margin: 2,
       }}
     >
       {isLoading ? (

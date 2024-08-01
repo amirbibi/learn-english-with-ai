@@ -1,5 +1,4 @@
 import { Chip } from "@mui/material";
-import React from "react";
 
 const DIFFICULTY_COLORS: Record<string, string> = {
   easy: "#00b8a3",

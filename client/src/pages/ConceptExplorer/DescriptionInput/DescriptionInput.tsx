@@ -1,4 +1,3 @@
-import React from "react";
 import { TextField, Box } from "@mui/material";
 import SpeechToText from "./SpeechToText";
 import PageSubTitle from "../../../components/ui/PageSubTitle";

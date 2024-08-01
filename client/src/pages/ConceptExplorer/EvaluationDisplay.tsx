@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, Divider, Fade } from "@mui/material";
 import { formatSection } from "../../utils/formatters";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { Alert, AlertTitle, Typography } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 

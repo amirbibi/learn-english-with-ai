@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box, Paper, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { useConceptExplorer } from "../../hooks/useConceptExplorer";

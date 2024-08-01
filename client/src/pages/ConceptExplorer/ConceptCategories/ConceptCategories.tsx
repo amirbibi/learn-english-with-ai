@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   FormControl,
@@ -6,16 +6,9 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-  Button,
-  ButtonGroup,
 } from "@mui/material";
 import PageTitle from "../../../components/ui/PageTitle";
-
-const DIFFICULTIES = [
-  { name: "easy", color: "#00b8a3" },
-  { name: "medium", color: "#e6a417" },
-  { name: "hard", color: "#ff375f" },
-];
+import DifficultiesButtonGroup from "./DifficultiesButtonGroup";
 
 const DEFAULT_CATEGORIES = ["General", "Computer Science"];
 
@@ -28,16 +21,11 @@ const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
   isLoading,
   onSelectConcept,
 }) => {
+  const [selectedDifficulty, setSelectedDifficulty] = useState("easy");
+
   const [selectedCategory, setSelectedCategory] = useState(
     DEFAULT_CATEGORIES[0]
   );
-  const [selectedDifficulty, setSelectedDifficulty] = useState(
-    DIFFICULTIES[0].name
-  );
-
-  // useEffect(() => {
-  //   onSelectConcept(selectedCategory, selectedDifficulty);
-  // }, [onSelectConcept]);
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     setSelectedCategory(event.target.value);
@@ -71,25 +59,12 @@ const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
         </Select>
       </FormControl>
       <Box mt={2}>
-        <ButtonGroup fullWidth variant="contained" disabled={isLoading}>
-          {DIFFICULTIES.map(({ name, color }) => (
-            <Button
-              key={name}
-              onClick={() => handleDifficultyChange(name)}
-              sx={{
-                backgroundColor: color,
-                color: "white",
-                fontWeight: "bold",
-                "&:hover": {
-                  backgroundColor: color,
-                  opacity: 0.8,
-                },
-              }}
-            >
-              {name}
-            </Button>
-          ))}
-        </ButtonGroup>
+        <DifficultiesButtonGroup
+          isLoading={isLoading}
+          onSelectDifficulty={handleDifficultyChange}
+          selectedDifficulty={selectedDifficulty}
+          setSelectedDifficulty={setSelectedDifficulty}
+        />
       </Box>
     </Box>
   );

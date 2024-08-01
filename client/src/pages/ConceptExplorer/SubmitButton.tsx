@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, CircularProgress } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -48,7 +47,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
             : theme.palette.primary.main,
       }}
     >
-      {isLoading ? "Processing..." : isSubmitted ? "New Concept" : "Submit"}
+      {isLoading && isSubmitted
+        ? "Processing..."
+        : isSubmitted
+        ? "New Concept"
+        : "Submit"}
     </Button>
   );
 };

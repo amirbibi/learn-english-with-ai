@@ -1,5 +1,3 @@
-import React from "react";
-
 export const formatSection = (content: string): React.ReactNode[] => {
   return content.split("\n").map((line, index) => {
     if (line.startsWith("- ")) {

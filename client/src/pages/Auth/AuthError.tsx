@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Box, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import ErrorMessage from "../../components/ui/ErrorMessage";

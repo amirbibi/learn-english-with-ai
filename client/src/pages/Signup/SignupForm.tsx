@@ -9,7 +9,6 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import PasswordField from "../../components/ui/form/PasswordField";
 import ErrorMessage from "../../components/ui/ErrorMessage";
-import React from "react";
 import ContinueWithGoogleButton from "../../components/ui/form/ContinueWithGoogleButton";
 
 interface SignupFormProps {
