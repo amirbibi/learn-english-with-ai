@@ -66,6 +66,7 @@ const ConceptDisplay: React.FC<ConceptDisplayProps> = ({
               concept={concept}
               category={category}
               difficulty={difficulty}
+              isSubmitted={isSubmitted}
             />
           ) : (
             <ConceptSkeleton />

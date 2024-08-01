@@ -8,7 +8,6 @@ import EvaluationDisplay from "./EvaluationDisplay";
 import QuoteDisplay from "./QuoteDisplay";
 import SubmitButton from "./SubmitButton";
 import ErrorMessage from "../../components/ui/ErrorMessage";
-import PageTitle from "../../components/ui/PageTitle";
 import ConceptCategories from "./ConceptCategories/ConceptCategories";
 
 const DEFAULT_CATEGORY = "General";
@@ -90,7 +89,6 @@ const ConceptExplorer: React.FC = () => {
                   borderRadius: { xs: 2, sm: 4 },
                 }}
               >
-                <PageTitle title="Concept Explorer" />
                 <ConceptDisplay
                   concept={state.concept}
                   category={state.category}

@@ -22,7 +22,7 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
       <TextField
         fullWidth
         multiline
-        rows={4}
+        rows={3}
         variant="outlined"
         placeholder="Describe the concept in your own words..."
         value={value}

@@ -19,7 +19,7 @@ const EvaluationDisplay: React.FC<EvaluationDisplayProps> = ({
         <Box sx={{ mb: 3 }}>
           <Typography
             variant="h6"
-            sx={{ mb: 1, color: "info.main", fontWeight: "bold" }}
+            sx={{ mt: 2, mb: 1, color: "info.main", fontWeight: "bold" }}
           >
             Evaluation:
           </Typography>
