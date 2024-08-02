@@ -1,5 +1,4 @@
 import { Button, ButtonGroup } from "@mui/material";
-import { useEffect } from "react";
 
 const DIFFICULTIES = [
   { name: "easy", color: "#00b8a3" },
