@@ -19,11 +19,11 @@ export const useConceptExplorer = () => {
     concept: "",
     category: "",
     difficulty: "",
+    isLoading: false,
+    isSubmitted: false,
     userDescription: "",
     evaluation: "",
     goodDescription: "",
-    isSubmitted: false,
-    isLoading: false,
   });
 
   const { getRandomConcept, submitDescription, error } = useConceptAPI();

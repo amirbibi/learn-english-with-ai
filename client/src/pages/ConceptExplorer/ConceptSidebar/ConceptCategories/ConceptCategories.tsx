@@ -7,24 +7,31 @@ import {
   MenuItem,
   SelectChangeEvent,
 } from "@mui/material";
-import PageTitle from "../../../components/ui/PageTitle";
+import PageTitle from "../../../../components/ui/PageTitle";
 import DifficultiesButtonGroup from "./DifficultiesButtonGroup";
 
 const DEFAULT_CATEGORIES = ["General", "Computer Science"];
+const DEFAULT_DIFFICULTY = "easy";
 
 interface ConceptCategoriesProps {
   isLoading: boolean;
   onSelectConcept: (category: string, difficulty: string) => void;
+  currentCategory: string;
+  currentDifficulty: string;
 }
 
 const ConceptCategories: React.FC<ConceptCategoriesProps> = ({
   isLoading,
   onSelectConcept,
+  currentCategory,
+  currentDifficulty,
 }) => {
-  const [selectedDifficulty, setSelectedDifficulty] = useState("easy");
+  const [selectedDifficulty, setSelectedDifficulty] = useState(
+    currentDifficulty || DEFAULT_DIFFICULTY
+  );
 
   const [selectedCategory, setSelectedCategory] = useState(
-    DEFAULT_CATEGORIES[0]
+    currentCategory || DEFAULT_CATEGORIES[0]
   );
 
   const handleCategoryChange = (event: SelectChangeEvent) => {

@@ -1,5 +1,5 @@
 import { Box, Typography, Divider, Fade } from "@mui/material";
-import { formatSection } from "../../utils/formatters";
+import { formatSection } from "../../../utils/formatters";
 
 interface EvaluationDisplayProps {
   evaluation: string;

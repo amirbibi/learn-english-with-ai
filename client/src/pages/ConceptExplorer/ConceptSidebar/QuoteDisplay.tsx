@@ -6,7 +6,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { useQuoteAPI } from "../../hooks/api/useQuoteAPI";
+import { useQuoteAPI } from "../../../hooks/api/useQuoteAPI";
 
 const QuoteDisplay: React.FC = () => {
   const { quote, isLoading, error, fetchRandomQuote } = useQuoteAPI();
