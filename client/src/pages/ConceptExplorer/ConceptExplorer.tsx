@@ -18,9 +18,10 @@ const ConceptExplorer: React.FC = () => {
   const { state, actions, error } = useConceptExplorer();
 
   useEffect(() => {
-    actions.handleNewConcept(DEFAULT_CATEGORY, DEFAULT_DIFFICULTY);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!state.concept) {
+      actions.handleNewConcept(DEFAULT_CATEGORY, DEFAULT_DIFFICULTY);
+    }
+  }, [actions, state.concept]);
 
   return (
     <Container maxWidth="lg" disableGutters sx={{ my: { xs: 2 } }}>
