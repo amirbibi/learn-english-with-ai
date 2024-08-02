@@ -1,6 +1,6 @@
 import { TextField, Box } from "@mui/material";
 import SpeechToText from "./SpeechToText";
-import PageSubTitle from "../../../components/ui/PageSubTitle";
+import PageSubTitle from "../../../../components/ui/PageSubTitle";
 
 interface DescriptionInputProps {
   value: string;

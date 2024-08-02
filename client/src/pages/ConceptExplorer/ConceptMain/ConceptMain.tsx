@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Stack } from "@mui/material";
 import { motion } from "framer-motion";
-import ConceptDisplay from "../ConceptDisplay/ConceptDisplay";
-import DescriptionInput from "../DescriptionInput/DescriptionInput";
+import ConceptDisplay from "./ConceptDisplay/ConceptDisplay";
+import DescriptionInput from "./DescriptionInput/DescriptionInput";
 import EvaluationDisplay from "./EvaluationDisplay";
 import SubmitButton from "./SubmitButton";
 import TryAgainButton from "./TryAgainButton";

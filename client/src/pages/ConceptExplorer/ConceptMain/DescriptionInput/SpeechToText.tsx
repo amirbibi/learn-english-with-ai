@@ -6,7 +6,7 @@ import "regenerator-runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import ErrorMessage from "../../../components/ui/ErrorMessage";
+import ErrorMessage from "../../../../components/ui/ErrorMessage";
 
 interface SpeechToTextProps {
   onTranscriptUpdate: (transcript: string) => void;
