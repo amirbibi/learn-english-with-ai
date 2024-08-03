@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useConceptAPI } from "./api/useConceptAPI";
-import { EvaluationResponse } from "../types/api";
-import { Concept } from "../types/concept";
+import { EvaluationResponse } from "../lib/types/api";
+import { Concept } from "../lib/types/concept";
 
 interface ConceptExplorerState {
   concept: string;

@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { api } from "../../services/apiService";
-import { EvaluationResponse } from "../../types/api";
-import { Concept } from "../../types/concept";
+import { EvaluationResponse } from "../../lib/types/api";
+import { Concept } from "../../lib/types/concept";
 
 export const useConceptAPI = () => {
   const [error, setError] = useState<string | null>(null);

@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import PageTitle from "../../../../components/ui/PageTitle";
 import DifficultiesButtonGroup from "./DifficultiesButtonGroup";
-
-const DEFAULT_CATEGORIES = ["General", "Computer Science"];
-const DEFAULT_DIFFICULTY = "easy";
+import {
+  DEFAULT_CATEGORIES,
+  DEFAULT_DIFFICULTY,
+} from "../../../../lib/constants";
 
 interface ConceptCategoriesProps {
   isLoading: boolean;

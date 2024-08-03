@@ -1,10 +1,5 @@
 import { Chip } from "@mui/material";
-
-const DIFFICULTY_COLORS: Record<string, string> = {
-  easy: "#00b8a3",
-  medium: "#e6a417",
-  hard: "#ff375f",
-};
+import { DIFFICULTY_COLORS } from "../../../../lib/constants";
 
 interface DifficultyChipProps {
   difficulty: string;

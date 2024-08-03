@@ -4,9 +4,9 @@ import {
   RegisterResponse,
   ValidateTokenResponse,
   EvaluationResponse,
-} from "../types/api";
-import { Concept } from "../types/concept";
-import { Quote } from "../types/quote";
+} from "../lib/types/api";
+import { Concept } from "../lib/types/concept";
+import { Quote } from "../lib/types/quote";
 
 class ApiService {
   private api: AxiosInstance;

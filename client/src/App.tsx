@@ -10,7 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { useUserContext } from "./hooks/useUserContext";
 import Navbar from "./components/common/Navbar";
 import { AppRoutes } from "./routes";
-import { globalStyles } from "./styles/globalStyles";
+import { globalStyles } from "./lib/styles/globalStyles";
 
 const AppContent: React.FC = () => {
   const { isLoading } = useUserContext();

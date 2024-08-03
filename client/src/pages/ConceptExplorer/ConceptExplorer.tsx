@@ -3,9 +3,7 @@ import { Container, Grid } from "@mui/material";
 import { useConceptExplorer } from "../../hooks/useConceptExplorer";
 import ConceptSidebar from "./ConceptSidebar/ConceptSidebar";
 import ConceptMain from "./ConceptMain/ConceptMain";
-
-const DEFAULT_CATEGORY = "General";
-const DEFAULT_DIFFICULTY = "easy";
+import { DEFAULT_CATEGORIES, DEFAULT_DIFFICULTY } from "../../lib/constants";
 
 const ConceptExplorer: React.FC = () => {
   const { state, actions, error } = useConceptExplorer();
@@ -13,7 +11,7 @@ const ConceptExplorer: React.FC = () => {
   useEffect(() => {
     if (!state.concept) {
       actions.handleNewConcept(
-        state.category || DEFAULT_CATEGORY,
+        state.category || DEFAULT_CATEGORIES[0],
         state.difficulty || DEFAULT_DIFFICULTY
       );
     }

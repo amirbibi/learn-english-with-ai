@@ -1,8 +1,7 @@
 import { Button, Box, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import ErrorMessage from "../../components/ui/ErrorMessage";
-
-const DEFAULT_ERROR_MESSAGE = "An error occurred during authentication.";
+import { DEFAULT_ERROR_MESSAGE } from "../../lib/constants";
 
 const AuthError: React.FC = () => {
   const navigate = useNavigate();
