@@ -8,3 +8,5 @@ export const DIFFICULTY_COLORS: Record<string, string> = {
   medium: "#e6a417",
   hard: "#ff375f",
 };
+
+export const MAX_DESCRIPTION_LENGTH = 220;

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { useConceptAPI } from "./api/useConceptAPI";
 import { EvaluationResponse } from "../lib/types/api";
 import { Concept } from "../lib/types/concept";
+import { MAX_DESCRIPTION_LENGTH } from "../lib/constants";
 
 interface ConceptExplorerState {
   concept: string;
@@ -35,7 +36,9 @@ export const useConceptExplorer = () => {
   const actions = useMemo(
     () => ({
       handleDescriptionChange: (value: string) => {
-        updateState({ userDescription: value });
+        if (value.length <= MAX_DESCRIPTION_LENGTH) {
+          updateState({ userDescription: value });
+        }
       },
 
       handleSubmit: async () => {
