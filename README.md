@@ -1,14 +1,14 @@
-# Learn with AI
+# Learn English with AI
 
 ## 📚 About
 
-"To truly master a language, you must be able to explain concepts within it." This fundamental insight inspired the creation of Learn English with AI, an innovative web application designed to help people improve their English language skills.
+At the heart of "Learn English with AI" lies a powerful insight: true language mastery comes from explaining concepts in that language. This innovative web application designed to help people improve their English language skills.
 
-"Learn English with AI" goes beyond traditional language learning methods by challenging users to explain randomly generated concepts in English. This approach not only enhances vocabulary and writing skills but also deepens conceptual understanding and improves the ability to articulate complex ideas — a crucial skill for true language fluency.
+Our platform challenges users to articulate randomly generated concepts in English, pushing beyond traditional learning methods. This unique approach not only bolsters vocabulary and writing skills but also enhances conceptual understanding and the ability to express complex ideas—the hallmarks of true language fluency.
 
 By combining cutting-edge AI technology with this unique learning philosophy, we've created a platform that provides:
 
-- Instant, intelligent feedback on your explanations
+- Real-time, AI-powered feedback on your explanations
 - Expert-level concept breakdowns to expand your understanding
 - A continually refreshing set of concepts to keep you engaged and learning
 
@@ -18,12 +18,35 @@ Whether you're a beginner looking to build confidence in expressing ideas, or an
 
 ## 🌟 Key Features
 
-- **Random Concept Generator**: Explore a diverse range of topics to broaden your vocabulary and knowledge base.
-- **Interactive Description Challenge**: Put your English skills to the test by explaining concepts in your own words.
-- **AI-Powered Evaluation**: Receive instantaneous, nuanced feedback on your descriptions from our advanced AI system.
-- **Comprehensive AI Explanations**: Gain deeper insights with AI-generated, expert-level explanations for each concept.
-- **Inspirational Quotes**: Stay motivated with a curated selection of quotes about language learning and personal growth.
-- **Responsive Design**: Enjoy a seamless learning experience across all devices - desktop, tablet, and mobile.
+- **AI-Powered Concept Challenges**: Tackle a diverse array of randomly generated concepts, pushing the boundaries of your English expression.
+
+- **Instant Feedback**: Receive real-time, nuanced evaluations of your explanations from our advanced AI, accelerating your learning curve.
+
+- **Adaptive Difficulty Levels**: Progress at your own pace with easy, medium, or hard concepts, ensuring a perfectly tailored learning experience.
+
+- **Voice-Activated Learning**: Harness the power of speech-to-text technology for a more natural and immersive practice session.
+
+- **Expert AI Explanations**: Dive deep into each concept with comprehensive, AI-generated breakdowns that expand your understanding.
+
+- **Motivational Quote Engine**: Stay inspired with a curated stream of thought-provoking quotes on language learning and personal growth.
+
+- **Secure Auth**: Safeguard your learning journey with robust user authentication, including Google OAuth integration.
+
+- **Dark/Light Mode**: Personalize your learning environment with theme options.
+
+- **Responsive Design**: Enjoy a seamless learning experience across all devices - desktop, tablet, and mobile devices for learning on-the-go.
+
+- **Continuous Content Refresh**: Enjoy an ever-expanding library of concepts, ensuring fresh challenges in every session.
+
+## 🛠️ Tech Stack
+
+- Frontend: React with TypeScript
+- Backend: Node.js with Express
+- Database: MongoDB
+- Styling: Material-UI
+- State Management: React Context API and custom hooks
+- API Integration: Axios
+- AI Integration: OpenAI API
 
 ## 🚀 Getting Started
 
@@ -31,6 +54,7 @@ Whether you're a beginner looking to build confidence in expressing ideas, or an
 
 - Node.js (v14 or later)
 - npm (v6 or later)
+- MongoDB instance
 
 ### Installation
 
@@ -44,7 +68,7 @@ Whether you're a beginner looking to build confidence in expressing ideas, or an
    ```
 3. Install dependencies for both frontend and backend:
    ```
-   cd frontend && npm install
+   cd client && npm install
    cd ../backend && npm install
    ```
 4. Set up environment variables:
@@ -55,7 +79,7 @@ Whether you're a beginner looking to build confidence in expressing ideas, or an
    ```
 6. Start the frontend development server:
    ```
-   cd frontend && npm run dev
+   cd client && npm run dev
    ```
 
 ## Environment Variables
@@ -87,7 +111,7 @@ VITE_GOOGLE_REDIRECT_URI=
 
 ## 🤝 Contributing
 
-I welcome contributions to Learn English with AI! If you have suggestions for improvements or encounter any issues, please feel free to open an issue or submit a pull request.
+We welcome contributions to Learn English with AI! If you have suggestions for improvements or encounter any issues, please feel free to open an issue or submit a pull request.
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -102,6 +126,8 @@ MIT License
 ## 🙏 Acknowledgments
 
 - OpenAI for providing the AI capabilities
+- Google for OAuth integration
+- Material-UI for the component library
 - You, for your interest in improving English language skills!
 
 ---
