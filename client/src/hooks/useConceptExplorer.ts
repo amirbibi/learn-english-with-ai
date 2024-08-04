@@ -13,6 +13,7 @@ interface ConceptExplorerState {
   goodDescription: string;
   isSubmitted: boolean;
   isLoading: boolean;
+  progressBarValue?: number;
 }
 
 export const useConceptExplorer = () => {
@@ -25,6 +26,7 @@ export const useConceptExplorer = () => {
     userDescription: "",
     evaluation: "",
     goodDescription: "",
+    progressBarValue: 0,
   });
 
   const { getRandomConcept, submitDescription, error } = useConceptAPI();

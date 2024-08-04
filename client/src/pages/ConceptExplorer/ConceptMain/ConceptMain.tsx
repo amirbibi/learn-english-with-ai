@@ -6,6 +6,7 @@ import EvaluationDisplay from "./EvaluationDisplay";
 import SubmitButton from "./SubmitButton";
 import TryAgainButton from "./TryAgainButton";
 import ErrorMessage from "../../../components/ui/ErrorMessage";
+import ProgressBarWithLabel from "./ProgressBarWithLabel";
 
 interface ConceptMainProps {
   state: {
@@ -58,22 +59,27 @@ const ConceptMain: React.FC<ConceptMainProps> = ({ state, actions, error }) => {
               isSubmitted={state.isSubmitted}
             />
             <Stack direction="row" gap={2}>
-              <SubmitButton
-                isSubmitted={state.isSubmitted}
-                isLoading={state.isLoading}
-                disabled={!state.isSubmitted && !state.userDescription.trim()}
-                category={state.category}
-                difficulty={state.difficulty}
-                onClick={
-                  state.isSubmitted
-                    ? () =>
-                        actions.handleNewConcept(
-                          state.category,
-                          state.difficulty
-                        )
-                    : actions.handleSubmit
-                }
-              />
+              {state.isLoading && state.isSubmitted ? (
+                <ProgressBarWithLabel />
+              ) : (
+                <SubmitButton
+                  isSubmitted={state.isSubmitted}
+                  isLoading={state.isLoading}
+                  disabled={!state.isSubmitted && !state.userDescription.trim()}
+                  category={state.category}
+                  difficulty={state.difficulty}
+                  onClick={
+                    state.isSubmitted
+                      ? () =>
+                          actions.handleNewConcept(
+                            state.category,
+                            state.difficulty
+                          )
+                      : actions.handleSubmit
+                  }
+                />
+              )}
+
               {state.isSubmitted && (
                 <TryAgainButton
                   isSubmitted={state.isSubmitted}

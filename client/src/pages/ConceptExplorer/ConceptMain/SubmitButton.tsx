@@ -47,11 +47,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
             : theme.palette.primary.main,
       }}
     >
-      {isLoading && isSubmitted
-        ? "Processing..."
-        : isSubmitted
-        ? "New Concept"
-        : "Submit"}
+      {isSubmitted ? "New Concept" : "Submit"}
     </Button>
   );
 };
