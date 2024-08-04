@@ -14,6 +14,8 @@ By combining cutting-edge AI technology with this unique learning philosophy, we
 
 Whether you're a beginner looking to build confidence in expressing ideas, or an advanced learner aiming to refine your explanatory skills, Learn English with AI offers a tailored, interactive experience to elevate your English proficiency.
 
+![Short Demo](./short-demo.gif)
+
 ## 🌟 Key Features
 
 - **Random Concept Generator**: Explore a diverse range of topics to broaden your vocabulary and knowledge base.
