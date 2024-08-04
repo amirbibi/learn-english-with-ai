@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Stack, Box } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import "regenerator-runtime";
@@ -63,29 +63,17 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({
 
   return (
     <>
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-        <Button
-          variant="contained"
-          startIcon={<MicIcon />}
-          onClick={handleStartListening}
-          disabled={listening || isDisabled}
+      <Tooltip title={listening ? "Stop Listening" : "Start Listening"}>
+        <IconButton
+          color={listening ? "secondary" : "primary"}
+          onClick={listening ? handleStopListening : handleStartListening}
+          disabled={isDisabled}
+          size="small"
         >
-          Start Listening
-        </Button>
-        <Button
-          variant="outlined"
-          startIcon={<MicOffIcon />}
-          onClick={handleStopListening}
-          disabled={!listening || isDisabled}
-        >
-          Stop Listening
-        </Button>
-      </Stack>
-      {error && (
-        <Box sx={{ mt: 2 }}>
-          <ErrorMessage message={error} />
-        </Box>
-      )}
+          {listening ? <MicOffIcon /> : <MicIcon />}
+        </IconButton>
+      </Tooltip>
+      {error && <ErrorMessage message={error} />}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, InputAdornment } from "@mui/material";
 import SpeechToText from "./SpeechToText";
 import PageSubTitle from "../../../../components/ui/PageSubTitle";
 
@@ -28,14 +28,18 @@ const DescriptionInput: React.FC<DescriptionInputProps> = ({
         onChange={(e) => onChange(e.target.value)}
         disabled={isLoading}
         sx={{ mt: 1 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SpeechToText
+                onTranscriptUpdate={onChange}
+                isDisabled={isLoading}
+                isSubmitted={isSubmitted}
+              />
+            </InputAdornment>
+          ),
+        }}
       />
-      <Box mt={3}>
-        <SpeechToText
-          onTranscriptUpdate={onChange}
-          isDisabled={isLoading}
-          isSubmitted={isSubmitted}
-        />
-      </Box>
     </Box>
   );
 };
