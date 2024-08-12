@@ -1,6 +1,4 @@
 import User from "../models/UserModel";
-import { OAuth2Client } from "google-auth-library";
-import config from "../config/index";
 
 export class AuthRepository {
   async findUserByEmail(email: string): Promise<any> {

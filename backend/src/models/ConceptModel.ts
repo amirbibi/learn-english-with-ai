@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 // Define an interface for the Concept document
 export interface IConcept extends Document {

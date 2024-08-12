@@ -2,8 +2,6 @@ import { ConceptModel } from "../models/ConceptModel";
 import { Concept } from "../types/concept";
 import { Document } from "mongoose";
 
-interface ConceptDocument extends Concept, Document {}
-
 export class ConceptRepository {
   private lastFetchedConceptName: string | null = null;
 

@@ -63,10 +63,4 @@ UserSchema.methods.comparePassword = async function (
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-UserSchema.statics.findByEmail = function (
-  email: string
-): Promise<IUser | null> {
-  return this.findOne({ email }).exec();
-};
-
 export default mongoose.model<IUser, IUserModel>("User", UserSchema);
