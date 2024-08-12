@@ -11,7 +11,7 @@ const ProgressBarWithLabel = () => {
           clearInterval(timer);
           return 100;
         }
-        return prevProgress + 0.515;
+        return prevProgress + 0.5;
       });
     }, 40);
 
