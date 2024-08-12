@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import config from "./index";
 
+// Connect to Database (MongoDB)
 export const connectToDatabase = async (
   uri = config.MONGODB_URI
-): Promise<typeof mongoose> => {
+): Promise<void> => {
   try {
     // Connect to MongoDB
-    const connection = await mongoose.connect(uri);
+    const _ = await mongoose.connect(uri);
     console.log("Connected to MongoDB");
 
     // Set up connection error handler
@@ -18,17 +19,8 @@ export const connectToDatabase = async (
     mongoose.connection.on("disconnected", () => {
       console.log("Disconnected from MongoDB");
     });
-
-    // Handle process termination
-    process.on("SIGINT", async () => {
-      await mongoose.connection.close();
-      console.log("MongoDB connection closed due to application termination");
-      process.exit(0);
-    });
-
-    return connection;
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
-    process.exit(1);
+    process.exit();
   }
 };

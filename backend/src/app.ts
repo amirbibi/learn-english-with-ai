@@ -20,7 +20,7 @@ app.use("/api", quoteRoutes);
 app.use("/api/auth", authRoutes);
 
 // Route error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   console.log(`No route found for ${req.method} ${req.url}`);
   res.status(404).send("Not Found");
 });
