@@ -17,7 +17,7 @@ class ApiService {
       baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000",
     });
 
-    // Include the auth token in the Authorization header at all times
+    // Include the authorization token in the Authorization header at all times
     this.api.interceptors.request.use((config) => {
       const token = localStorage.getItem("token");
       if (token) {
