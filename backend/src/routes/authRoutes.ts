@@ -1,6 +1,5 @@
 import express from "express";
 import { AuthController } from "../controllers/AuthController";
-import { validateJwtToken } from "../middlewares/validateJwtToken";
 import { AuthRepository } from "../repositories/AuthRepository";
 import { JwtService } from "../services/JwtService";
 import { GoogleAuthService } from "../services/GoogleAuthService";
@@ -20,7 +19,11 @@ const authController = new AuthController(
 // Routes
 router.post("/register", authController.register);
 router.post("/login", authController.login);
-router.get("/validate-token", validateJwtToken, authController.getCurrentUser);
+router.get(
+  "/validate-token",
+  jwtService.validateToken,
+  authController.getCurrentUser
+);
 router.get("/sessions/oauth/google", authController.googleCallback);
 
 export default router;

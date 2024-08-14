@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { AuthRepository } from "../repositories/AuthRepository";
-import { AuthRequest } from "../middlewares/validateJwtToken";
-import { JwtService } from "../services/JwtService";
+import { JwtService, AuthRequest } from "../services/JwtService";
 import { GoogleAuthService } from "../services/GoogleAuthService";
 
 export class AuthController {

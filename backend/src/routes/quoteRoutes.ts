@@ -1,15 +1,16 @@
 import express from "express";
 import { QuoteController } from "../controllers/QuoteController";
 import { QuoteRepository } from "../repositories/QuoteRepository";
-import { validateJwtToken } from "../middlewares/validateJwtToken";
+import { JwtService } from "../services/JwtService";
 
 const router = express.Router();
 
 // Create instances
+const jwtService = new JwtService();
 const quoteRepository = new QuoteRepository();
 const quoteController = new QuoteController(quoteRepository);
 
 // Routes
-router.get("/quote", validateJwtToken, quoteController.getRandomQuote);
+router.get("/quote", jwtService.validateToken, quoteController.getRandomQuote);
 
 export default router;
