@@ -15,7 +15,8 @@ const ConceptExplorer: React.FC = () => {
         state.difficulty || DEFAULT_DIFFICULTY
       );
     }
-  }, [actions, state.category, state.concept, state.difficulty]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container maxWidth="lg" disableGutters sx={{ my: { xs: 2 } }}>
