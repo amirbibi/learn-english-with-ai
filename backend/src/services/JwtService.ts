@@ -26,6 +26,7 @@ export class JwtService {
     return jwt.sign({ userId }, this.secret, { expiresIn: this.expiresIn });
   }
 
+  // Validate the token from the Authorization header
   validateToken = (
     req: AuthRequest,
     res: Response,

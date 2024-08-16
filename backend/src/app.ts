@@ -8,6 +8,7 @@ import config from "./config";
 
 const app = express();
 
+// TOdo
 connectToDatabase();
 
 // Middlewares
@@ -15,15 +16,10 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
 // Routes
+// app.use("/api/concepts", conceptRoutes);
 app.use("/api", conceptRoutes);
 app.use("/api", quoteRoutes);
 app.use("/api/auth", authRoutes);
-
-// Route error handler
-app.use((req, res) => {
-  console.log(`No route found for ${req.method} ${req.url}`);
-  res.status(404).send("Not Found");
-});
 
 // Start the server
 app.listen(config.PORT, () => {

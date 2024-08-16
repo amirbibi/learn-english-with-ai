@@ -1,5 +1,5 @@
 import { Quote } from "../types/quote";
-import { IQuote, QuoteModel } from "../models/QuoteModel";
+import { QuoteModel } from "../models/QuoteModel";
 export class QuoteRepository {
   // Get a random quote
   async getRandomQuote(): Promise<Quote> {
@@ -8,6 +8,7 @@ export class QuoteRepository {
       throw new Error("No quotes available");
     }
 
+    // Generates a random number between 0 and count - 1
     const random = Math.floor(Math.random() * count);
     const randomQuote = await QuoteModel.findOne().skip(random);
 

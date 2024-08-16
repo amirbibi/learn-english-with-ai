@@ -12,6 +12,8 @@ interface User {
   email: string;
 }
 
+// TODO: Zustand
+
 export interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;

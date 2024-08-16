@@ -16,6 +16,7 @@ const conceptController = new ConceptController(
 );
 
 // Routes
+// TODO: Move to middleware
 router.get(
   "/concept",
   jwtService.validateToken,

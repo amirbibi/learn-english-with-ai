@@ -1,11 +1,10 @@
 import { ConceptModel } from "../models/ConceptModel";
 import { Concept } from "../types/concept";
-import { Document } from "mongoose";
 
 export class ConceptRepository {
   private lastFetchedConceptName: string | null = null;
 
-  // $sample (better then $rand for small collections)
+  // $sample is better than $rand for small collections
   async getRandomConcept(
     category: string,
     difficulty: string
